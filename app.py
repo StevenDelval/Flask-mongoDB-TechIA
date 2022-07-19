@@ -12,6 +12,13 @@ def accueil():
 @app.route('/article/<nom>')
 def article(nom):
     return render_template("article.html", titre=nom)
+
+@app.route('/connexion')
+def connexion():
+    return render_template("connexion.html")
+@app.route('/inscription')
+def inscription():
+    return render_template("inscription.html")
     
 @app.route("/admin/") #à compléter
 def admin():
