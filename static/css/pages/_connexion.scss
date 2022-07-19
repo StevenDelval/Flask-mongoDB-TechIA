@@ -3,13 +3,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: $couleur_fond;
 }
 .form_connexion {
+    a{
+        color : $couleur_douce;
+        text-decoration: none;
+    }
     display: flex;
     flex-flow: column;
     justify-content: center;
     gap: 50px ;
-    border: solid 1px black;
+    border: solid 1px $couleur_sombre;
     border-radius: 20px;
     padding: 40px;
     fieldset {
