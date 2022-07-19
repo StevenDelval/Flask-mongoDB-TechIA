@@ -1,12 +1,10 @@
-from crypt import methods
 from flask import Flask, render_template, redirect, url_for, request, session
+
 from pymongo import MongoClient
 from datetime import datetime
-from formulaires import Connexion
 
-""" now = datetime.now()
-date_format_str = "%d/%m/%Y %H:%M:%S.%f"
-date_now = now.strftime(date_format_str) """
+from formulaires import Connexion, Inscription
+
 
 client = MongoClient("localhost:27017")
 
@@ -19,7 +17,7 @@ app.config['SECRET_KEY']='Secret'
 
 @app.route("/") #différents url possibles du site
 def accueil():
-    return render_template("accueil.html")
+    return render_template("accueil.html" , articles = articles.find().sort('date',-1) )
 
 @app.route('/article/<titre>')
 def article(titre):
@@ -32,11 +30,16 @@ def liste_articles():
 @app.route('/connexion',methods=['GET','POST'])
 def connexion():
     form = Connexion()
+    if form.validate_on_submit():
+        return "connecter"
     return render_template("connexion.html",form = form)
 
-@app.route('/inscription')
+@app.route('/inscription',methods=['GET','POST'])
 def inscription():
-    return render_template("inscription.html")
+    form =Inscription()
+    if form.validate_on_submit():
+        return redirect( url_for("accueil"))
+    return render_template("inscription.html",form = form)
     
 @app.route("/admin/") #à compléter
 def admin():

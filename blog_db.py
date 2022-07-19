@@ -1,11 +1,15 @@
 from pymongo import MongoClient
 from datetime import datetime
 
-def format_date():
+def date_in_str():
     now = datetime.now()
     date_format_str = "%d/%m/%Y %H:%M:%S.%f"
     date_now = now.strftime(date_format_str)
     return date_now
+
+def str_in_date(date):
+    date_format_str = "%d/%m/%Y %H:%M:%S.%f"
+    return  datetime.strptime(date, date_format_str)
 
 client = MongoClient("127.0.0.1:27017") 
 
@@ -19,7 +23,7 @@ article1 ={
     "auteur" : "JP",
     "resumer" : "blablalbla  bla bla bla",
     "texte" : "La formation à Simplon est dure.",
-    "date" : format_date(),
+    "date" : date_in_str(),
     "commentaires" : [{
         "auteur" : "Claire",
         "texte_commentaire" : "J'adore!"
@@ -31,7 +35,7 @@ article2 ={
     "auteur" : "Thomas",
     "resumer" : "blablalbla  bla bla bla",
     "texte" : "Les bananes sont délicieuses.",
-    "date" : format_date(),
+    "date" : date_in_str(),
     "commentaires" : [{
         "auteur" : "Paul",
         "texte_commentaire" : "C'est instructif!"
