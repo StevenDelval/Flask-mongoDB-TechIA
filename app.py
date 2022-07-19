@@ -1,5 +1,10 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from pymongo import MongoClient
+from datetime import datetime
+
+""" now = datetime.now()
+date_format_str = "%d/%m/%Y %H:%M:%S.%f"
+date_now = now.strftime(date_format_str) """
 
 client = MongoClient("localhost:27017")
 
