@@ -1,7 +1,25 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <!--
-        Compléter le code ici !
-    -->
+
+
+
+<nav> <a href="accueil.html">Accueil</a>
+    <a href="article.html">Articles</a>
+    <a href="connexion.html">Connexion</a>
+    <a href="inscription.html">Inscription</a>
+</nav>
+
+
+{% for article in articles %}
+<article>
+    <h1>{{ article["titre"] }}</h1>
+    <p>{{article["date"]}}</p>
+    <p>{{article["text"]}}</p>
+</article>
+{% endfor %}
+
+
+
+
 {% endblock %}
