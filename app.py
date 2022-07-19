@@ -21,9 +21,9 @@ app.config['SECRET_KEY']='Secret'
 def accueil():
     return render_template("accueil.html")
 
-@app.route('/article/<nom>')
-def article(nom):
-    return render_template("article.html", titre=nom)
+@app.route('/article/<titre>')
+def article(titre):
+    return render_template("article.html", titre=titre, article = articles.find_one({titre : titre}))
 
 @app.route('/liste_articles/')
 def liste_articles():
@@ -33,11 +33,11 @@ def liste_articles():
 def connexion():
     form = Connexion()
     return render_template("connexion.html",form = form)
+
 @app.route('/inscription')
 def inscription():
     return render_template("inscription.html")
     
 @app.route("/admin/") #à compléter
 def admin():
-    pass
-    return render_template("article.html") 
+    pass 
