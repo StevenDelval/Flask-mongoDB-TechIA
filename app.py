@@ -8,6 +8,9 @@ date_now = now.strftime(date_format_str) """
 
 client = MongoClient("localhost:27017")
 
+db=client.blog
+articles = db.articles
+
 app = Flask(__name__)
 
 @app.route("/") #différents url possibles du site
@@ -17,6 +20,10 @@ def accueil():
 @app.route('/article/<nom>')
 def article(nom):
     return render_template("article.html", titre=nom)
+
+@app.route('/liste_articles/')
+def liste_articles():
+    return render_template("liste_articles.html", articles=articles.find())
 
 @app.route('/connexion')
 def connexion():

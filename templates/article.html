@@ -2,24 +2,14 @@
 
 
 {% block body %}
-    <nav> <a href="accueil.html">Accueil</a>
-        <a href="liste_articles.html">Articles</a>
-        <a href="connexion.html">Connexion</a>
-        <a href="inscription.html">Inscription</a>
-    </nav>
-    {% for article in articles %}
-    <article>
-        <h1>{{ titre1 }}</h1>
-        <p>{{ auteur }}</p>
-        <p>{{ date }}</p>
-        <p>{{ resume1 }}</p>
-        <body>
-            {{ contenu }}
-        </body>
-    {% endfor %}
+<nav> <a href="accueil.html">Accueil</a>
+    <a href="liste_articles.html">Articles</a>
+    <a href="connexion.html">Connexion</a>
+    <a href="inscription.html">Inscription</a>
+</nav>
+<h1>{{ article["titre"]}}</h1>
+<p>{{ article["auteur"]}}</p>
+<p>{{ article["date"]}}</p>
+<p>{{ article["texte"]}}</p>
 
-        
-
-    </article>
-    
 {% endblock %}

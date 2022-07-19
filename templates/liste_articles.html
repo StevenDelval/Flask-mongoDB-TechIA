@@ -1,27 +1,18 @@
 {% extends "base.html" %}
 
 {% block body %}
+
     <nav> <a href="accueil.html">Accueil</a>
         <a href="liste_articles.html">Articles</a> /*modifié*/
         <a href="connexion.html">Connexion</a>
         <a href="inscription.html">Inscription</a>
     </nav>
+    {%for article in articles%}
     <article>
-        <h1>{{ titre1 }}</h1>
-        <h3>{{ resume1 }}</h3>
-        <a href="article.html"></a>
+        <h1>{{ article["titre"]}}</h1>
+        <p>{{ article["auteur"]}}</p>
+        <p>{{ article["date"]}}</p>
+        <p>{{ article["texte"]}}</p>
     </article>
-    
-    <article>
-        <h1>{{ titre2 }}</h1>
-        <h3>{{ resume2 }}</h3>
-        <a href="article.html"></a>
-    </article>
-
-    <article>
-        <h1>{{ titre3 }}</h1>
-        <h3>{{ resume3 }}</h3>
-        <a href="article.html"></a>
-    </article>
-
+    {%endfor%}
 {% endblock %}
