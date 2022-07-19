@@ -19,7 +19,7 @@ app.config['SECRET_KEY']='Secret'
 
 @app.route("/") #différents url possibles du site
 def accueil():
-    return render_template("accueil.html" , articles = articles.find())
+    return render_template("accueil.html" , articles = articles.find().sort('date',-1) )
 
 @app.route('/article/<titre>')
 def article(titre):
