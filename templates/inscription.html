@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block body %}
+<main class="connexion">
+    <form action="" method="post" class="form_connexion">
+        <fieldset>
+            <label for="username">Nom utilisateur :</label>
+            <input type="text" id="username" name="username" placeholder="Nom utilisateur">
+        </fieldset>
+
+        <fieldset>
+            <label for="password">Mot de passe :</label>
+            <input id="password" type="password" name="password" placeholder="Mot de passe">
+        </fieldset>
+
+        <fieldset>
+            <label for="conf_password">Mot de passe :</label>
+            <input id="conf_password" type="password" name="conf_password" placeholder="Comfirmation mot de passe">
+        </fieldset>
+
+        <input class="action_button" type="submit" value="Inscription">
+
+
+    </form>
+</main>
+{% endblock %}
