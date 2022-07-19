@@ -3,20 +3,21 @@
 {% block body %}
 <main class="connexion">
     <form action="" method="post" class="form_connexion">
-        <a href="connexion">Vous avez un compte ?</a>
+        <a href={{ url_for('connexion') }}>Vous avez un compte ?</a>
         <fieldset>
-            <label for="username">Nom utilisateur :</label>
-            <input type="text" id="username" name="username" placeholder="Nom utilisateur">
+            {{form.login.label}}
+            {{form.login()}}
+
         </fieldset>
 
         <fieldset>
-            <label for="password">Mot de passe :</label>
-            <input id="password" type="password" name="password" placeholder="Mot de passe">
+            {{form.password.label}}
+            {{form.password()}}
         </fieldset>
 
         <fieldset>
-            <label for="conf_password">Mot de passe :</label>
-            <input id="conf_password" type="password" name="conf_password" placeholder="Comfirmation mot de passe">
+            {{form.confirmation_password.label}}
+            {{form.confirmation_password()}}
         </fieldset>
 
         <input class="action_button" type="submit" value="Inscription">

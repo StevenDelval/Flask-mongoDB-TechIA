@@ -2,7 +2,7 @@ from crypt import methods
 from flask import Flask, render_template, redirect, url_for, request, session
 from pymongo import MongoClient
 from datetime import datetime
-from formulaires import Connexion
+from formulaires import Connexion, Inscription
 
 """ now = datetime.now()
 date_format_str = "%d/%m/%Y %H:%M:%S.%f"
@@ -32,11 +32,16 @@ def liste_articles():
 @app.route('/connexion',methods=['GET','POST'])
 def connexion():
     form = Connexion()
+    if form.validate_on_submit():
+        return "connecter"
     return render_template("connexion.html",form = form)
 
-@app.route('/inscription')
+@app.route('/inscription',methods=['GET','POST'])
 def inscription():
-    return render_template("inscription.html")
+    form =Inscription()
+    if form.validate_on_submit():
+        return redirect( url_for("accueil"))
+    return render_template("inscription.html",form = form)
     
 @app.route("/admin/") #à compléter
 def admin():

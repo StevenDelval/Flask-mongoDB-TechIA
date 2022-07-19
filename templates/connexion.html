@@ -4,7 +4,7 @@
 <main class="connexion">
 
     <form action="" method="post" class="form_connexion">
-        <a href="inscription">Vous n'avez pas de compte ?</a>
+        <a href={{ url_for('inscription') }}>Vous n'avez pas de compte ?</a>
 
         <fieldset>
             {{form.login.label}}
