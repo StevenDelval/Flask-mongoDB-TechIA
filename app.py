@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from pymongo import MongoClient
 from datetime import datetime
+from formulaires import Connexion
 
 """ now = datetime.now()
 date_format_str = "%d/%m/%Y %H:%M:%S.%f"
@@ -18,15 +19,16 @@ def accueil():
     return render_template("accueil.html")
 
 @app.route('/article/<nom>')
-def article(nom):
-    return render_template("article.html", titre=nom)
+def article(titre):
+    return render_template("article.html", titre=titre, article = articles.find_one({titre : titre}))
 
 @app.route('/liste_articles/')
 def liste_articles():
     return render_template("liste_articles.html", articles=articles.find())
 
-@app.route('/connexion')
+@app.route('/connexion', methods=['GET','POST']) 
 def connexion():
+    form = Connexion()
     return render_template("connexion.html")
 @app.route('/inscription')
 def inscription():
