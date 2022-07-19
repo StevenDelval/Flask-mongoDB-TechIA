@@ -3,7 +3,7 @@
 {% block body %}
 
     <nav> <a href="accueil.html">Accueil</a>
-        <a href="liste_articles.html">Articles</a> /*modifié*/
+        <a href="liste_articles.html">Articles</a> <!-- *modifié* -->
         <a href="connexion.html">Connexion</a>
         <a href="inscription.html">Inscription</a>
     </nav>
@@ -12,7 +12,7 @@
         <h1>{{ article["titre"]}}</h1>
         <p>{{ article["auteur"]}}</p>
         <p>{{ article["date"]}}</p>
-        <p>{{ article["texte"]}}</p>
+        <p>{{ article["résumé"]}}</p>
     </article>
     {%endfor%}
 {% endblock %}
