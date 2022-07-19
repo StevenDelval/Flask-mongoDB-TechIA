@@ -1,7 +1,28 @@
 nav {
-    display: grid;
-    border: 1px solid #333;
-    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: $couleur_douce;
+    }
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0px;
     width: 70%;
-    margin: 15px auto;
+}
+
+.index {
+    display: flex;
+}
+
+.portail {
+    display: flex;
+}
+
+.liste_nav {
+    padding: 15px;
 }

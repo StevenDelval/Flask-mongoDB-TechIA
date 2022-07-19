@@ -1,4 +1,12 @@
 .titre_article {
-    display: flex;
+    text-align: justify;
     background-color: $couleur_fond;
+    gap: 50px;
+    width: 70%;
+    margin: 0 auto;
+    line-height: 45px;
+}
+
+.titre {
+    font-family: Helvetica;
 }

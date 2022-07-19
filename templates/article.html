@@ -2,11 +2,19 @@
 
 
 {% block body %}
-<nav> <a href="accueil.html">Accueil</a>
-    <a href="liste_articles.html">Articles</a>
-    <a href="connexion.html">Connexion</a>
-    <a href="inscription.html">Inscription</a>
+<nav>
+    <ul>
+        <div class="index">
+            <li class="liste_nav"><a href="accueil.html">Accueil</a></li>
+            <li class="liste_nav"><a href="liste_articles.html">Articles</a></li>
+        </div>
+        <div class="portail">
+            <li class="liste_nav"><a href="connexion.html">Connexion</a></li>
+            <li class="liste_nav"><a href="inscription.html">Inscription</a></li>
+        </div>
+    </ul>
 </nav>
+
 <main class="article">
     <h1>{{ article["titre"]}}</h1>
     <p>{{ article["auteur"]}}</p>
