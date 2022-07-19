@@ -1,21 +1,26 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <main class="connexion">
-        <form action="" method="post" class="form_connexion">
-            <fieldset>
-            <label for="username">Nom utilisateur :</label>
-            <input type="text" id="username" name="username" placeholder="Nom utilisateur">
-            </fieldset>
+<main class="connexion">
 
-            <fieldset>
-            <label for="password">Mot de passe :</label>
-            <input id="password" type="password" name="password" placeholder="Mot de passe">
-            </fieldset>
+    <form action="" method="post" class="form_connexion">
+        <a href="inscription">Vous n'avez pas de compte ?</a>
 
-            <input class="action_button" type="submit" value="Connexion">
+        <fieldset>
+            {{form.login.label}}
+            {{form.login()}}
+
+        </fieldset>
+
+        <fieldset>
+            {{form.password.label}}
+            {{form.password()}}
+        </fieldset>
 
 
-        </form>
-    </main>
+        <input class="action_button" type="submit" value="Connexion">
+
+
+    </form>
+</main>
 {% endblock %}

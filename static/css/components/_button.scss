@@ -1,5 +1,7 @@
 .action_button {
-    border: solid 1px blue;
+    border: solid 1px $couleur_sombre;
+    background-color: $couleur_peps;
+    color: white;
     border-radius: 10px;
-    
+    font-size: 24px;
 }

@@ -7,9 +7,10 @@
     <a href="connexion.html">Connexion</a>
     <a href="inscription.html">Inscription</a>
 </nav>
-<h1>{{ article["titre"]}}</h1>
-<p>{{ article["auteur"]}}</p>
-<p>{{ article["date"]}}</p>
-<p>{{ article["resumé"]}}</p>
-
+<main class="article">
+    <h1>{{ article["titre"]}}</h1>
+    <p>{{ article["auteur"]}}</p>
+    <p>{{ article["date"]}}</p>
+    <p>{{ article["texte"]}}</p>
+</main>
 {% endblock %}
