@@ -3,7 +3,7 @@
 {% block body %}
 
 
-<form action="" method="post">
+<!-- <form action="" method="post"> -->
     
 <nav> <a href="accueil.html">Accueil</a>
     <a href="article.html">Articles</a>
@@ -12,7 +12,7 @@
 </nav>
 <main class="main_accueil">
 
-{% for article in articles %}
+
 <article>
     
 
@@ -22,9 +22,9 @@
         <p>{{ article["resumer"]}}</p>
 
 </article>
-{% endfor %}
-</main >
+
 
 
 
 {% endblock %}
+</main>
