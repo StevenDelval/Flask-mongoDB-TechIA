@@ -4,27 +4,17 @@
 
 
 <!-- <form action="" method="post"> -->
-    
-<nav> <a href="accueil.html">Accueil</a>
-    <a href="article.html">Articles</a>
-    <a href="connexion.html">Connexion</a>
-    <a href="inscription.html">Inscription</a>
-</nav>
-<main class="main_accueil">
-
-
-<article>
-    
-
+    <nav> <a href="accueil.html">Accueil</a>
+        <a href="liste_articles.html">Articles</a> <!-- *modifié* -->
+        <a href="connexion.html">Connexion</a>
+        <a href="inscription.html">Inscription</a>
+    </nav>
+    {%for article in articles%}
+    <article class="titre_article">
         <h1>{{ article["titre"]}}</h1>
         <p>{{ article["auteur"]}}</p>
         <p>{{ article["date"]}}</p>
         <p>{{ article["resumer"]}}</p>
-
-</article>
-
-
-
-
+    </article>
+    {%endfor%}
 {% endblock %}
-</main>
