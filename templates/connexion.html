@@ -9,18 +9,18 @@
 
         <fieldset>
             {{form.login.label}}
-            {{form.login()}}
+            {{form.login(required='required')}}
 
         </fieldset>
 
         <fieldset>
             {{form.password.label}}
-            {{form.password()}}
+            {{form.password(required='required')}}
         </fieldset>
-
+        
 
         <input class="action_button" type="submit" value="Connexion">
-
+        {{form.csrf_token}}
 
     </form>
 </main>

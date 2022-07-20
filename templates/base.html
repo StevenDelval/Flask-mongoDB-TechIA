@@ -16,11 +16,18 @@
                 <li class="liste_nav"><a href={{ url_for("liste_articles")}}>Articles</a></li>
             </div>
             <div class="portail">
-                <li class="liste_nav"><a href={{ url_for("connexion")}}>Connexion</a></li>
+                {% if login %}
+                    <li class="liste_nav">Bonjour {{login}} !</li>
+                    <li class="liste_nav"> <a href={{ url_for("logout")}}>Se deconnecter</a></li>
+                {% else %}
+                
+                <li class="liste_nav"><a href={{ url_for("connexion")}}>Se connecter</a></li>
                 <li class="liste_nav"><a href={{ url_for("inscription")}}>Inscription</a></li>
+                {% endif %}
             </div>
         </ul>
     </nav>
-    {% block body %}{% endblock %}
+    {% block body %}
+    {% endblock %}
 </body>
 </html>

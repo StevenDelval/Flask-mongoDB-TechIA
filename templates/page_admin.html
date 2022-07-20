@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+
+
+
+<main class="main_accueil">
+{%for article in articles%}
+<article class="titre_article_accueil">
+    <h1>{{ article["titre"]}}</h1>
+    <p>{{ article["auteur"]}}</p>
+    <p>{{ article["date"]}}</p>
+    <p>{{ article["resumer"]}}</p>
+</article>
+{%endfor%}
+</main>
+{% endblock %}
