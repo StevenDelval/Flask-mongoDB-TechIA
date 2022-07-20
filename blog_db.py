@@ -31,6 +31,7 @@ db=client.blog
 articles = db.articles
 user=db.utilisateurs
 
+
 article1 ={
     "titre" : "Simplon",
     "auteur" : "JP",

@@ -28,6 +28,7 @@ client = MongoClient("localhost:27017")
 db=client.blog
 articles = db.articles
 user=db.utilisateurs
+comment=db.commentaires
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='Secret'
@@ -42,8 +43,10 @@ def accueil():
     return render_template("accueil.html" ,login = utilisateur, articles = articles.find().sort('date',-1) )
     
 
-@app.route('/article/<titre>')
+@app.route('/article/<titre>', methods=['GET','POST'])
 def article(titre):
+    article = articles.find_one({"titre" : titre})
+ 
     try:
         utilisateur = session["user"]
     except:
@@ -51,12 +54,14 @@ def article(titre):
     form = Commentaire()
     if form.validate_on_submit():
         if utilisateur is not None:
-            user = utilisateur 
-            date = date_in_str()
-            validation = False
+            liste_commentaire=article["commentaires"]
+            commentaire={"utilisateur":utilisateur, "date":date_in_str(), "commentaire":form.data["commentaire"],"validation": False}
+            liste_commentaire.append(commentaire)
+            articles.update_one({"titre" : titre}, { "$set": {"commentaires":liste_commentaire} })
+          
         else:
             return redirect(url_for("inscription"))
-    return render_template("article.html", form=form, login=utilisateur, article = articles.find_one({"titre" : titre}))
+    return render_template("article.html", form=form, login=utilisateur, article = article)
     
 @app.route('/liste_articles/')
 def liste_articles():
