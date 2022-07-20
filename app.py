@@ -4,7 +4,7 @@ from flask import Flask, render_template, redirect, url_for, request, session
 from pymongo import MongoClient
 from datetime import datetime
 
-from formulaires import Connexion, Inscription, Commentaire 
+from formulaires import Connexion, Inscription, Commentaire , Validation
 
 def crypt(password):
     """
@@ -118,19 +118,26 @@ def logout():
 def page404():
     return render_template("page404.html")
 
-@app.route("/admin/") #à compléter
+@app.route("/admin",methods=['GET','POST']) #à compléter
 def admin():
     liste_articles=articles.find()
+    form = Validation()
+    
+    if form.validate_on_submit():
+
+
     for article in liste_articles:
         liste_commentaire = article["commentaires"]
+
         for commentaire in liste_commentaire:
             if not commentaire["validation"]:
-                return render_template("page_admin.html",commentaire = commentaire, articles=articles.find())
+
+                return render_template("page_admin.html",form = form , commentaire = commentaire)
 
 
 
 
 
-    return render_template("page_admin.html", articles=articles.find())
+    return render_template("page_admin.html")
 
  
