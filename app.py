@@ -43,4 +43,5 @@ def inscription():
     
 @app.route("/admin/") #à compléter
 def admin():
-    pass 
+    return render_template("page_admin.html", articles=articles.find())
+ 
