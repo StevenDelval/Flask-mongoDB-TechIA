@@ -120,5 +120,17 @@ def page404():
 
 @app.route("/admin/") #à compléter
 def admin():
+    liste_articles=articles.find()
+    for article in liste_articles:
+        liste_commentaire = article["commentaires"]
+        for commentaire in liste_commentaire:
+            if not commentaire["validation"]:
+                return render_template("page_admin.html",commentaire = commentaire, articles=articles.find())
+
+
+
+
+
     return render_template("page_admin.html", articles=articles.find())
+
  
