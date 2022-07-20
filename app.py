@@ -46,31 +46,35 @@ def accueil():
 @app.route('/article/<titre>', methods=['GET','POST'])
 def article(titre):
     article = articles.find_one({"titre" : titre})
-    
-    liste_commentaire=article["commentaires"]
-    liste_commentaires_valides=[]
-    for comment in liste_commentaire:
-        if comment["validation"] :
-            liste_commentaires_valides.append(comment)
-    
-    try:
-        utilisateur = session["user"]
-    except:
-        utilisateur = None
-    form = Commentaire()
-    if form.validate_on_submit():
-        if utilisateur is not None:
-            
-            commentaire={"utilisateur":utilisateur, "date":date_in_str(), "commentaire":form.data["commentaire"],"validation": False}
-            liste_commentaire.append(commentaire)
-            articles.update_one({"titre" : titre}, { "$set": {"commentaires":liste_commentaire} })
-          
-        else:
-            return redirect(url_for("inscription"))
-    if article is not None:
-        return render_template("article.html", form=form, login=utilisateur, article = article, comments=liste_commentaires_valides)
-    else:
+    if article is None:
         return redirect(url_for("page404"))
+    else:
+        try:
+            utilisateur = session["user"]
+        except:
+            utilisateur = None
+
+        liste_commentaire=article["commentaires"]
+        liste_commentaires_valides=[]
+        for comment in liste_commentaire:
+            if comment["validation"] :
+                liste_commentaires_valides.append(comment)
+        form = Commentaire()
+        
+        if form.validate_on_submit():
+            if utilisateur is not None:
+            
+                commentaire={"utilisateur":utilisateur, "date":date_in_str(), "commentaire":form.data["commentaire"],"validation": False}
+                liste_commentaire.append(commentaire)
+                articles.update_one({"titre" : titre}, { "$set": {"commentaires":liste_commentaire} })
+        
+            else:
+                return redirect(url_for("connexion"))
+
+        return render_template("article.html", form=form, login=utilisateur, article = article, comments=liste_commentaires_valides)
+    
+        
+
 @app.route('/liste_articles/')
 def liste_articles():
     try:
