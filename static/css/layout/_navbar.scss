@@ -4,7 +4,7 @@ nav {
     align-items: center;
     width: 100%;
     background-color: $couleur_douce;
-    margin-bottom: 50px;
+    height: 60px;
     }
 
 nav ul {
@@ -26,4 +26,16 @@ nav ul {
 
 .liste_nav {
     padding: 15px;
+}
+nav{
+    ul{
+        div{
+            li{
+                a{
+                    text-decoration: none;
+                    color: $couleur_fond;
+                }
+            }
+        }
+    }
 }
