@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, EmailField
+from wtforms import StringField, PasswordField, TextAreaField
 
 class Connexion(FlaskForm):
     login = StringField("Nom utilisateur :", render_kw={"placeholder": "Nom utilisateur "})
@@ -11,5 +11,5 @@ class Inscription(FlaskForm):
     confirmation_password = PasswordField("Confirmation mot de passe :",render_kw={"placeholder": "Confirmation mot de passe"})
 
 class Commentaire(FlaskForm):
-    commentaire = StringField("Commentaire : ", render_kw={"placeholder": "Entrez votre commentaire"})
+    commentaire = TextAreaField("Commentaire : ", render_kw={"placeholder": "Entrez votre commentaire"})
   

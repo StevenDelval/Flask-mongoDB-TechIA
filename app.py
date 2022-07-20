@@ -56,19 +56,8 @@ def article(titre):
             validation = False
         else:
             return redirect(url_for("inscription"))
-    return render_template("article.html", login=utilisateur, titre=titre, article = articles.find_one({"titre" : titre}))
+    return render_template("article.html", form=form, login=utilisateur, article = articles.find_one({"titre" : titre}))
     
-
-@app.route('/article/<titre>')
-def article(titre):
-    try:
-        utilisateur = session["user"]
-    except:
-        utilisateur = None
-    return render_template("article.html",login = utilisateur, titre=titre, article = articles.find_one({"titre" : titre}))
-
-
-
 @app.route('/liste_articles/')
 def liste_articles():
     try:
