@@ -61,8 +61,10 @@ def article(titre):
           
         else:
             return redirect(url_for("inscription"))
-    return render_template("article.html", form=form, login=utilisateur, article = article)
-    
+    if article is not None:
+        return render_template("article.html", form=form, login=utilisateur, article = article)
+    else:
+        return redirect(url_for("page404"))
 @app.route('/liste_articles/')
 def liste_articles():
     try:
@@ -101,6 +103,10 @@ def inscription():
 def logout():
     session.pop('user')
     return redirect(url_for("accueil"))
+
+@app.route("/page404")
+def page404():
+    return render_template("page404.html")
 
 @app.route("/admin/") #à compléter
 def admin():
