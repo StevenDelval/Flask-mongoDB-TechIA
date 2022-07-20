@@ -99,15 +99,5 @@ def logout():
 
 @app.route("/admin/") #à compléter
 def admin():
-    pass 
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    utilisateur = {"login": "adresse@mail.com", "password": "mdp"}
-    form = Connexion()
-    if form.validate_on_submit(): #pour vérifier que l'utilisateur a bien rentré des données
-        if form.data["login"] == utilisateur["login"] and form.data["password"] == utilisateur["password"]: #if find_one est-ce qu'il y a qqc dans la bdd qui correspond aux logins
-            #création d'une session
-            session["login"] = utilisateur["login"]
-            return redirect(url_for("accueil")) #renvoyer l'user vers l'accueil après connexion 
-    return render_template("login.html", form=form)
+    return render_template("page_admin.html", articles=articles.find())
+ 

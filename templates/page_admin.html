@@ -8,7 +8,7 @@
 <main class="main_accueil">
 {%for article in articles%}
 <article class="titre_article_accueil">
-    <h1>{{ article["titre"]}}</h1>
+    {%for article in articles%}
     <p>{{ article["auteur"]}}</p>
     <p>{{ article["date"]}}</p>
     <p>{{ article["resumer"]}}</p>
@@ -16,3 +16,20 @@
 {%endfor%}
 </main>
 {% endblock %}
+
+<!-- trouver comment ressortir tout  les commentaires des articles dans l'idée une boucle for sur les article donc for comment in article 
+{%for article in articles%}
+    <article class="titre_article_accueil"
+    {%for comment in article%}
+        <p>{{ comment["auteur"]}}</p>
+        <p>{{ comment["date"]}}</p>
+    {%endfor%}
+{%endfor%}
+
+a tester , il faut ensuite pouvoir faire en sorte que l'admin puisse choisir quel commentaire supprimer , donc utiliser la fonction : 
+input(query)   delete "db.movies.deleteOne( { cast: "Brad Pitt" } )"    il faudra certainement utiliser un $in 
+
+
+
+
+>-->
