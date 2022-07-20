@@ -29,7 +29,7 @@ client.drop_database('blog')
 
 db=client.blog
 articles = db.articles
-user=db.utilisateur
+user=db.utilisateurs
 
 article1 ={
     "titre" : "Simplon",
