@@ -1,14 +1,32 @@
 .article {
     text-align: justify;
-    margin: 0 auto;
-    background-color: $couleur_douce;
-    color: $couleur_claire;
+    background-color: white;
+    color: black;
     gap: 50px;
     width: 70%;
-    margin: 0 auto;
+    margin: 20px auto 0 auto;
     line-height: 45px;
     list-style: none;
     padding: 15px;
     border-radius: 30px;
 }
 
+.form_comment {
+    text-align: justify;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-flow: column;
+    gap: 50px;
+    width: 70%;
+    margin: 20px auto 0 auto;
+    line-height: 45px;
+    list-style: none;
+    padding: 15px;
+    border-radius: 30px;
+    input[type="submit"]{
+        align-self: flex-end;
+        width: 250px;
+        font-size: 18px;
+    }
+}

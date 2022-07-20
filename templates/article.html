@@ -3,10 +3,19 @@
 
 {% block body %}
 
-<main class="article">
-    <h1>{{ article["titre"]}}</h1>
+<main >
+    <article class="article">
+    <h2>{{ article["titre"]}}</h2>
     <p>{{ article["auteur"]}}</p>
     <p>{{ article["date"]}}</p>
     <p>{{ article["texte"]}}</p>
+    </article>
+
+    <form action="" method="post" class="form_comment">
+        {{form.commentaire.label}}
+        {{form.commentaire()}}
+        <input class="action_button" type="submit" value="Envoyer commentaire">
+        {{form.csrf_token}}
+    </form>
 </main>
 {% endblock %}
