@@ -1,0 +1,15 @@
+.main_accueil {
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    text-align: justify;
+    gap: 50px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.titre_article_accueil{
+    text-align: justify;
+    gap: 20px;
+    margin: 0 auto;
+    color: $couleur_claire;
+}
