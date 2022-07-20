@@ -17,10 +17,10 @@
             {{form.password.label}}
             {{form.password()}}
         </fieldset>
-
+        
 
         <input class="action_button" type="submit" value="Connexion">
-
+        {{form.csrf_token}}
 
     </form>
 </main>
