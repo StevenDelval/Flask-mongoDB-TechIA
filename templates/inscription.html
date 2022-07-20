@@ -7,18 +7,18 @@
         <a href={{ url_for('connexion') }}>Vous avez un compte ?</a>
         <fieldset>
             {{form.login.label}}
-            {{form.login()}}
+            {{form.login(required='required')}}
 
         </fieldset>
 
         <fieldset>
             {{form.password.label}}
-            {{form.password()}}
+            {{form.password(required='required')}}
         </fieldset>
 
         <fieldset>
             {{form.confirmation_password.label}}
-            {{form.confirmation_password()}}
+            {{form.confirmation_password(required='required')}}
         </fieldset>
 
         <input class="action_button" type="submit" value="Inscription">

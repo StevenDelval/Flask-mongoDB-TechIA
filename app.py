@@ -1,4 +1,4 @@
-from re import U
+import hashlib
 from flask import Flask, render_template, redirect, url_for, request, session
 
 from pymongo import MongoClient
@@ -6,12 +6,22 @@ from datetime import datetime
 
 from formulaires import Connexion, Inscription
 
+def crypt(password):
+    """
+    Fonction qui crypte un mot de passe
+    :param password: (str) mot de passe
+    :return: (str) le hash du mot de passe
+    """
+    hash_pwd = hashlib.new('sha256')
+    hash_pwd.update(password.encode())
+    hash_pwd = hash_pwd.hexdigest()
+    return hash_pwd
 
 client = MongoClient("localhost:27017")
 
 db=client.blog
 articles = db.articles
-utilisateur=db.utilisateur
+user=db.utilisateur
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='Secret'
@@ -43,11 +53,11 @@ def liste_articles():
 
 @app.route('/connexion',methods=['GET','POST'])
 def connexion():
-    utilisateur = {"username":"steven","password":"1234"}
     form = Connexion()
     if form.validate_on_submit():
-        if form.data["login"] == utilisateur["username"] and form.data["password"] == utilisateur["password"]:
-            session["user"] = form.data["login"]
+        is_in_bd = user.find_one({"username":form.data["login"],"password":crypt(form.data["password"])})
+        if is_in_bd is not None:
+            session["user"] = is_in_bd["username"]
             return redirect(url_for("accueil"))
       
     return render_template("connexion.html",form = form)
@@ -56,7 +66,16 @@ def connexion():
 def inscription():
     form =Inscription()
     if form.validate_on_submit():
-        return redirect( "accueil")
+        is_in_bd = user.find_one({"username":form.data["login"]})
+        if is_in_bd is None:
+            if form.data["password"] == form.data["confirmation_password"]:
+                user.insert_one({"username":form.data["login"],
+                                "password":crypt(form.data["password"])
+                }
+                )
+                session["user"] = form.data["login"]
+                return redirect(url_for("accueil"))
+        return redirect( url_for("inscription"))
     return render_template("inscription.html",form = form)
 @app.route("/logout")
 def logout():

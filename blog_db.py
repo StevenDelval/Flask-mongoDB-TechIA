@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from datetime import datetime
+import hashlib
 
 def date_in_str():
     now = datetime.now()
@@ -11,12 +12,24 @@ def str_in_date(date):
     date_format_str = "%d/%m/%Y %H:%M:%S.%f"
     return  datetime.strptime(date, date_format_str)
 
+def crypt(password):
+    """
+    Fonction qui crypte un mot de passe
+    :param password: (str) mot de passe
+    :return: (str) le hash du mot de passe
+    """
+    hash_pwd = hashlib.new('sha256')
+    hash_pwd.update(password.encode())
+    hash_pwd = hash_pwd.hexdigest()
+    return hash_pwd
+
 client = MongoClient("127.0.0.1:27017") 
 
 client.drop_database('blog')
 
 db=client.blog
 articles = db.articles
+user=db.utilisateur
 
 article1 ={
     "titre" : "Simplon",
@@ -44,8 +57,8 @@ article2 ={
 
 articles.insert_many([article1, article2])
 
-for article in articles.find():
-    print(article)
+user.insert_one({
+    "username" : "test",
+    "password" : crypt("test")
+})
 
-#Lire un article précis
-print(articles.find_one({"titre" : "Les bananes"}))
