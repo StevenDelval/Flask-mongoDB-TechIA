@@ -46,7 +46,13 @@ def accueil():
 @app.route('/article/<titre>', methods=['GET','POST'])
 def article(titre):
     article = articles.find_one({"titre" : titre})
- 
+    
+    liste_commentaire=article["commentaires"]
+    liste_commentaires_valides=[]
+    for comment in liste_commentaire:
+        if comment["validation"] :
+            liste_commentaires_valides.append(comment)
+    
     try:
         utilisateur = session["user"]
     except:
@@ -54,7 +60,7 @@ def article(titre):
     form = Commentaire()
     if form.validate_on_submit():
         if utilisateur is not None:
-            liste_commentaire=article["commentaires"]
+            
             commentaire={"utilisateur":utilisateur, "date":date_in_str(), "commentaire":form.data["commentaire"],"validation": False}
             liste_commentaire.append(commentaire)
             articles.update_one({"titre" : titre}, { "$set": {"commentaires":liste_commentaire} })
@@ -62,7 +68,7 @@ def article(titre):
         else:
             return redirect(url_for("inscription"))
     if article is not None:
-        return render_template("article.html", form=form, login=utilisateur, article = article)
+        return render_template("article.html", form=form, login=utilisateur, article = article, comments=liste_commentaires_valides)
     else:
         return redirect(url_for("page404"))
 @app.route('/liste_articles/')

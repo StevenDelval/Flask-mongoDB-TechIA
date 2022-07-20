@@ -11,6 +11,14 @@
     <p>{{ article["texte"]}}</p>
     </article>
 
+    {%for comment in comments%}
+    <section>
+        <p>{{comment["utilisateur"]}}</p>
+        <p>{{comment["date"]}}</p>
+        <p>{{comment["commentaire"]}}</p>
+       
+    </section>
+    {%endfor%}
     <form action="" method="post" class="form_comment">
         {{form.commentaire.label}}
         {{form.commentaire()}}
