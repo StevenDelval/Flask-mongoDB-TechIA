@@ -8,10 +8,11 @@
 <main class="main_accueil">
 {%for article in articles%}
 <article class="titre_article_accueil">
-    <h1>{{ article["titre"]}}</h1>
+    <h2>{{ article["titre"]}}</h2>
     <p>{{ article["auteur"]}}</p>
     <p>{{ article["date"]}}</p>
     <p>{{ article["resumer"]}}</p>
+    <a href={{ url_for('article',titre= article["titre"]) }}><span>Lire l'arti</span>cle</a>
 </article>
 {%endfor%}
 </main>
