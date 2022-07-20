@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block body %} 
+    <form action="" method="post">
+        {{ form.login.label }} {{ form.login()}} <br>
+        {{ form.password.label }} {{ form.password() }}
+        {{ form.csrf_token }}
+        <input type="submit" value="Se connecter">
+    </form>
+{%endblock%}

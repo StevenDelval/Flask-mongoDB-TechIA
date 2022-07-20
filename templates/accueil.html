@@ -13,6 +13,8 @@
     <p>{{ article["date"]}}</p>
     <p>{{ article["resumer"]}}</p>
 </article>
+{% if login %} 
+    {{login}}
 {%endfor%}
 </main>
 {% endblock %}
