@@ -1,27 +1,10 @@
-import hashlib
 from flask import Flask, render_template, redirect, url_for, request, session
 
 from pymongo import MongoClient
-from datetime import datetime
 
 from formulaires import Connexion, Inscription, Commentaire , Validation
 
-def crypt(password):
-    """
-    Fonction qui crypte un mot de passe
-    :param password: (str) mot de passe
-    :return: (str) le hash du mot de passe
-    """
-    hash_pwd = hashlib.new('sha256')
-    hash_pwd.update(password.encode())
-    hash_pwd = hash_pwd.hexdigest()
-    return hash_pwd
-
-def date_in_str():
-    now = datetime.now()
-    date_format_str = "%d/%m/%Y %H:%M:%S.%f"
-    date_now = now.strftime(date_format_str)
-    return date_now
+from fonctions import crypt, date_in_str
 
 client = MongoClient("localhost:27017")
 
@@ -124,7 +107,7 @@ def admin():
     form = Validation()
     
     if form.validate_on_submit():
-
+        pass
 
     for article in liste_articles:
         liste_commentaire = article["commentaires"]
