@@ -1,0 +1,16 @@
+.page404{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: $couleur_claire;
+    h1{
+        font-size: 150px;
+    }
+    a{
+        color: inherit;
+        font-size: 50px;
+        text-decoration: none;
+    }
+}
