@@ -1,3 +1,4 @@
+from tkinter.messagebox import NO
 from flask import Flask, render_template, redirect, url_for, request, session
 
 from pymongo import MongoClient
@@ -82,6 +83,12 @@ def liste_articles():
 @app.route('/connexion',methods=['GET','POST'])
 def connexion():
     form = Connexion()
+    try:
+        utilisateur = session["user"]
+    except:
+        utilisateur = None
+    if utilisateur is not None:
+        return redirect(url_for("accueil"))
     if form.validate_on_submit():
         is_in_bd = user.find_one({"username":form.data["login"],"password":crypt(form.data["password"])})
         if is_in_bd is not None:
@@ -93,6 +100,12 @@ def connexion():
 @app.route('/inscription',methods=['GET','POST'])
 def inscription():
     form =Inscription()
+    try:
+        utilisateur = session["user"]
+    except:
+        utilisateur = None
+    if utilisateur is not None:
+        return redirect(url_for("accueil"))
     if form.validate_on_submit():
         is_in_bd = user.find_one({"username":form.data["login"]})
         if is_in_bd is None:
