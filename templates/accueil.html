@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% block body %}
-
+<header class="header_accueil">
+    <h1>Intelligence Artificielle 4.0</h1>
+    <h3>Bienvenue sur LE site référence en terme de documentation IA</h3>
+    <p>Ce blog a pour vocation le rassemblement des recherches (et trouvailles!) concernant l'intelligence artificielle</p>
+    <img src="../static/img/accueil.jpeg" alt="robot IA">
+</header>
 <main class="main_accueil">
 {%for article in articles%}
 <article class="titre_article_accueil">
