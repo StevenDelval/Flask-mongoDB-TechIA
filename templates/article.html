@@ -3,7 +3,7 @@
 
 {% block body %}
 
-<main >
+<main class="main_article">
     <article class="article">
     <h2>{{ article["titre"]}}</h2>
     <p>{{ article["auteur"]}}</p>
@@ -20,7 +20,7 @@
     {%endfor%}
     <form action="" method="post" class="form_comment">
         {{form.commentaire.label}}
-        {{form.commentaire()}}
+        {{form.commentaire(rows='4')}}
         <input class="action_button" type="submit" value="Envoyer commentaire">
         {{form.csrf_token}}
     </form>

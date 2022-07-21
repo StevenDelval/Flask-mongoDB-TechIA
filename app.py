@@ -63,13 +63,18 @@ def ecrire_article():
         utilisateur = session["user"]
     except:
         utilisateur = None
-    liste_articles=[]
+    
+
     form = Article()
     if form.validate_on_submit():
         if utilisateur is not None:
-            nouvel_article={"utilisateur":utilisateur, "date":date_in_str(), "titre":form.Data["titre"], "texte":form.data["texte"]}
-            liste_articles.append(nouvel_article)
-    return render_template("ecrire_article.html", form=form)
+            nouvel_article={"titre":form.data["titre"],"auteur":utilisateur,"resumer":form.data["resumer"], "texte":form.data["texte"],"date":date_in_str(),"commentaires" :[] }
+            articles.insert_one(nouvel_article)
+            return redirect(url_for("liste_articles"))
+
+        else:
+            return redirect(url_for("connexion"))
+    return render_template("ecrire_article.html",login=utilisateur, form=form)
 
 @app.route('/liste_articles')
 def liste_articles():
@@ -77,7 +82,7 @@ def liste_articles():
         utilisateur = session["user"]
     except:
         utilisateur = None
-    return render_template("liste_articles.html",login = utilisateur, articles=articles.find())
+    return render_template("liste_articles.html",login = utilisateur, articles=articles.find().sort('date',-1) )
 
 @app.route('/connexion',methods=['GET','POST'])
 def connexion():
