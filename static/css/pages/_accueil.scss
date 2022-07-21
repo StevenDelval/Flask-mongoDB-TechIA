@@ -8,13 +8,17 @@
 }
 
 .titre_article_accueil{
-    padding: 10px 20px;
+    &> * {
+        margin-left: 20px;
+    }
+    padding-bottom: 10px;
     width: 100%;
     text-align: justify;
     background-color: $couleur_claire;
     border-radius: 20px;
     h2{
         font-size: 36px;
+        font-family: Helvetica;
     }
     p{
         font-size: 18px;

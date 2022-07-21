@@ -18,6 +18,9 @@ nav ul {
 }
 
 .index {
+    &:first-child{
+        padding-left: 15px;
+    }
     display: flex;
 }
 
@@ -26,12 +29,15 @@ nav ul {
 }
 
 .liste_nav {
-    padding: 15px;
+    padding: 15px 30px 15px 0;
 }
 nav{
     ul{
         div{
             li{
+                &:last-child{
+                    padding-right: 0;
+                }
                 a{
                     text-decoration: none;
                     color: $couleur_claire;

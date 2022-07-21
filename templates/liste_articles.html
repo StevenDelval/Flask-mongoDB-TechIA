@@ -1,14 +1,47 @@
-{% extends "base.html" %}
+<html lang="fr">
 
-{% block body %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Mon super blog sur l'IA !</title>
+</head>
 
-{%for article in articles%}
-<article class="titre_article">
-    <h1 class="titre">{{ article["titre"]}}</h1>
-    <p>{{ article["auteur"]}}</p>
-    <p>{{ article["date"]}}</p>
-    <p>{{ article["resumer"]}}</p>
-    <a href={{ url_for('article',titre= article["titre"]) }}><span>Lire l'arti</span>cle</a>
-</article>
-{%endfor%}
-{% endblock %}
+<body class="body_liste_articles">
+    <nav>
+        <ul>
+            <div class="index">
+                <li class="liste_nav"><a href={{ url_for("accueil")}}>Accueil</a></li>
+                <li class="liste_nav"><a href={{ url_for("liste_articles")}}>Articles</a></li>
+            </div>
+            <div class="portail">
+                {% if login %}
+                <li class="liste_nav">Bonjour {{login}} !</li>
+                <li class="liste_nav"> <a href={{ url_for("logout")}}>Se deconnecter</a></li>
+                {% else %}
+
+                <li class="liste_nav"><a href={{ url_for("connexion")}}>Se connecter</a></li>
+                <li class="liste_nav"><a href={{ url_for("inscription")}}>Inscription</a></li>
+                {% endif %}
+            </div>
+        </ul>
+    </nav>
+
+
+    <main class="main_liste_articles">
+        {%for article in articles%}
+        <article class="article_liste_articles">
+            <h1 class="titre_liste_articles">{{ article["titre"]}}</h1>
+            <p class="auteur_liste_articles">{{ article["auteur"]}}</p>
+            <p class="date_liste_articles">{{ article["date"]}}</p>
+            <p class="resumer_liste_articles">{{ article["resumer"]}}</p>
+            <a href={{ url_for('article',titre=article["titre"]) }}><span>Lire l'arti</span>cle</a>
+        </article>
+        {%endfor%}
+    </main>
+</body>
+
+</html>

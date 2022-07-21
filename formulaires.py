@@ -16,4 +16,6 @@ class Commentaire(FlaskForm):
 class Validation(FlaskForm):
     validation = RadioField('Voulez vous valider le commentaire ?', choices=[('True ','valider'),('False','supprimer')])
 
-  
+class Article(FlaskForm):
+    titre = TextAreaField("Titre : ", render_kw={"placeholder": "Entrez votre titre"})
+    texte = TextAreaField("Article : ", render_kw={"placeholder": "Commencez l'écriture..."})
