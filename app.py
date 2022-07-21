@@ -63,12 +63,18 @@ def ecrire_article():
         utilisateur = session["user"]
     except:
         utilisateur = None
-    liste_articles=[]
+        
+    #liste_articles=[]
+
     form = Article()
     if form.validate_on_submit():
         if utilisateur is not None:
             nouvel_article={"titre":form.data["titre"],"auteur":utilisateur,"resumer":form.data["resumer"], "texte":form.data["texte"],"date":date_in_str(),"commentaires" :[] }
-            liste_articles.append(nouvel_article)
+            #liste_articles.append(nouvel_article)
+            articles.insert_one(nouvel_article)
+
+        else:
+            return redirect(url_for("connexion"))
     return render_template("ecrire_article.html",login=utilisateur, form=form)
 
 @app.route('/liste_articles')
