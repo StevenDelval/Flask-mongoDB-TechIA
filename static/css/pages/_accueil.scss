@@ -1,5 +1,5 @@
 .header_accueil {
-    background-color:#2c1a1c;
+    background-color:$couleur_fond;
     color: $couleur_claire;
     text-align: center;
     gap: 50px;
@@ -50,4 +50,13 @@
 }
 .titre_article_accueil:hover{
     transform: scale(1.05);
+}
+
+.auteur_accueil {
+    color: $couleur_peps;
+    font-weight: bold;
+}
+
+.resume_accueil {
+    font-weight: bold;
 }
