@@ -133,26 +133,36 @@ def admin():
     except:
         utilisateur = None
     liste_articles=articles.find()
-    
-    
     form = Validation()
-
-    if form.validate_on_submit():
-        if utilisateur is not None:
-            if form.validation is True :
-                article["validation"] = True
-                return redirect(url_for("page404"))
-        else: 
-            return redirect(url_for ("connexion"))
-
     for article in liste_articles:
         liste_commentaire = article["commentaires"]
         for commentaire in liste_commentaire:
             if not commentaire["validation"]:
-                return render_template("page_admin.html",form = form , commentaire = commentaire)
+                REDIRECTION = render_template("page_admin.html",form = form , commentaire = commentaire)
     
+    
+    
+   
 
-    return render_template("page_admin.html",form = form , commentaire = commentaire)
+    if form.validate_on_submit():
+        if utilisateur is not None:
+            print(form.data["validation"])
+            if form.data["validation"] :
+                commentaire["validation"] = True
+                
+                return redirect(url_for("page404"))
+               
+                
+                
+        else: 
+            REDIRECTION = redirect(url_for("connexion"))
+            
+            
+            
+
+   
+
+    return REDIRECTION
 
     
 
