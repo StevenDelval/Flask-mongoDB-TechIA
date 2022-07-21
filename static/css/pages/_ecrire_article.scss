@@ -1,0 +1,12 @@
+.ecrire_article{
+    display: flex;
+    background-color: $couleur_douce;
+    color: black;
+    gap: 50px;
+    width: 70%;
+    margin: 20px auto 0 auto;
+    line-height: 45px;
+    padding: 15px;
+    border-radius: 30px;
+    text-align: justify;
+}

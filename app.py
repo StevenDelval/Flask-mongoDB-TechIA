@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, url_for, request, session
 
 from pymongo import MongoClient
 
-from formulaires import Connexion, Inscription, Commentaire , Validation
+from formulaires import Connexion, Inscription, Commentaire , Validation, Article
 
 from fonctions import crypt, date_in_str
 
@@ -57,7 +57,19 @@ def article(titre):
 
         return render_template("article.html", form=form, login=utilisateur, article = article, comments=liste_commentaires_valides)
     
-        
+@app.route('/ecrire_article', methods=['GET', 'POST'])
+def ecrire_article():
+    try:
+        utilisateur = session["user"]
+    except:
+        utilisateur = None
+    liste_articles=[]
+    form = Article()
+    if form.validate_on_submit():
+        if utilisateur is not None:
+            nouvel_article={"utilisateur":utilisateur, "date":date_in_str(), "titre":form.Data["titre"], "texte":form.data["texte"]}
+            liste_articles.append(nouvel_article)
+    return render_template("ecrire_article.html", form=form)
 
 @app.route('/liste_articles')
 def liste_articles():
