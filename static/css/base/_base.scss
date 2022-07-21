@@ -1,11 +1,16 @@
 body{
-    background-color: $couleur_fond;    
+    background-color: $couleur_fond;   
+    background-image: url("../img/fond.jpeg"); 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 /* ===== Scrollbar CSS ===== */
   /* Firefox */
   * {
     scrollbar-width: none;
     scrollbar-color: #d4331d #ffffff;
+
   }
 
   /* Chrome, Edge, and Safari */
