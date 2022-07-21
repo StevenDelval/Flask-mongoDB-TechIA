@@ -26,14 +26,16 @@ article2 ={
     "resumer" : "blablalbla  bla bla bla",
     "texte" : "Les bananes sont délicieuses.",
     "date" : date_in_str(),
-    "commentaires" :[]
+    "commentaires" :[{"utilisateur":"Dom", "date":date_in_str(), "commentaire":"Wooooooooooooh mongo db est dur","validation": False},
+    {"utilisateur":"Fom", "date":date_in_str(), "commentaire":"mongo db est dur par la la fenetre","validation": False}]
     
 }
 # [{"utilisateur":"Tom", "date":date_in_str(), "commentaire":"Waaa","validation": True}]
 articles.insert_many([article1, article2])
 
 user.insert_one({
-    "username" : "test",
-    "password" : crypt("test")
+    "username" : "Admin",
+    "password" : crypt("admin"),
+    "droit_admin":True
 })
 

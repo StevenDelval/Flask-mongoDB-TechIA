@@ -5,9 +5,12 @@
 
 
 
-<main class="admin">
+<main class="admin" style="background-color:#FFF ;">
     
     <article class="commentaire_admin">
+        {% if article %}
+        {{article.titre}}
+        {% endif  %}
 {% if commentaire  %}
     <p>{{ commentaire["utilisateur"]}}</p>
     <p>{{ commentaire["date"]}}</p>
