@@ -12,10 +12,9 @@
     </article>
 
     {%for comment in comments%}
-    <section>
-        <p>{{comment["utilisateur"]}}</p>
-        <p>{{comment["date"]}}</p>
-        <p>{{comment["commentaire"]}}</p>
+    <section class="commentaire_article">
+        <p class="commentaire_utilisateur">Commentaire de : {{comment["utilisateur"]}} le {{comment["date"]}}</p>
+        <p class="commentaire_text"> {{comment["commentaire"]}}</p>
        
     </section>
     {%endfor%}

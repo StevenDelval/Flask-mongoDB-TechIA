@@ -59,7 +59,7 @@ def article(titre):
     
         
 
-@app.route('/liste_articles/')
+@app.route('/liste_articles')
 def liste_articles():
     try:
         utilisateur = session["user"]

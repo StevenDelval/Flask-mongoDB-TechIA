@@ -14,6 +14,10 @@ def crypt(password):
 
 def date_in_str():
     now = datetime.now()
-    date_format_str = "%d/%m/%Y %H:%M:%S.%f"
+    date_format_str = "%d/%m/%Y à %H:%M:%S.%f"
     date_now = now.strftime(date_format_str)
     return date_now
+
+def str_in_date(date):
+    date_format_str = "%d/%m/%Yà%H:%M:%S.%f"
+    return  datetime.strptime(date, date_format_str)
