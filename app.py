@@ -28,7 +28,17 @@ def accueil():
         utilisateur = None
         admin = False
         
-    return render_template("accueil.html" ,login = utilisateur, admin=admin, articles = articles.find().sort('date',-1) )
+    index = 0
+    liste_articles =[]
+    tous_les_articles = articles.find().sort('date',-1)
+    for article in tous_les_articles:
+        if index < 6:
+            liste_articles.append(article)
+            index += 1
+
+
+
+    return render_template("accueil.html" ,login = utilisateur, admin=admin, articles = liste_articles )
     
 
 #####################################
@@ -103,7 +113,7 @@ def liste_articles():
     except:
         utilisateur = None
         admin = False
-    return render_template("liste_articles.html",login = utilisateur,admin=admin, articles=articles.find().sort('date',-1) )
+    return render_template("liste_articles.html",login = utilisateur,admin=admin, articles=articles.find() )
 
 
 #####################################
