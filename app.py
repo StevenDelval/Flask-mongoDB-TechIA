@@ -113,7 +113,7 @@ def liste_articles():
     except:
         utilisateur = None
         admin = False
-    return render_template("liste_articles.html",login = utilisateur,admin=admin, articles=articles.find() )
+    return render_template("liste_articles.html",login = utilisateur,admin=admin, articles=articles.find().sort('date',-1) )
 
 
 #####################################
@@ -198,7 +198,7 @@ def admin():
     except:
         utilisateur = None
         admin = False
-        
+
     liste_articles=articles.find()
     form = Validation()
     
