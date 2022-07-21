@@ -1,3 +1,14 @@
+.header_accueil {
+    background-color:chocolate;
+    text-align: center;
+    gap: 50px;
+    width: 70%;
+    margin: 20px auto 0 auto; 
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+
 .main_accueil {
     display: grid;
     grid-template-columns: minmax((100px,1fr)) minmax((100px,1fr)) ;
