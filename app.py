@@ -67,7 +67,7 @@ def ecrire_article():
     form = Article()
     if form.validate_on_submit():
         if utilisateur is not None:
-            nouvel_article={"utilisateur":utilisateur, "date":date_in_str(), "titre":form.Data["titre"], "texte":form.data["texte"]}
+            nouvel_article={"titre":form.data["titre"],"auteur":utilisateur,"resumer":form.data["resumer"], "texte":form.data["texte"],"date":date_in_str(),"commentaires" :[] }
             liste_articles.append(nouvel_article)
     return render_template("ecrire_article.html", form=form)
 

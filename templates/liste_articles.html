@@ -1,35 +1,7 @@
-<html lang="fr">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>Mon super blog sur l'IA !</title>
-</head>
 
-<body class="body_liste_articles">
-    <nav>
-        <ul>
-            <div class="index">
-                <li class="liste_nav"><a href={{ url_for("accueil")}}>Accueil</a></li>
-                <li class="liste_nav"><a href={{ url_for("liste_articles")}}>Articles</a></li>
-            </div>
-            <div class="portail">
-                {% if login %}
-                <li class="liste_nav">Bonjour {{login}} !</li>
-                <li class="liste_nav"> <a href={{ url_for("logout")}}>Se deconnecter</a></li>
-                {% else %}
-
-                <li class="liste_nav"><a href={{ url_for("connexion")}}>Se connecter</a></li>
-                <li class="liste_nav"><a href={{ url_for("inscription")}}>Inscription</a></li>
-                {% endif %}
-            </div>
-        </ul>
-    </nav>
-
+{% block body %}
 
     <main class="main_liste_articles">
         {%for article in articles%}
@@ -42,6 +14,4 @@
         </article>
         {%endfor%}
     </main>
-</body>
-
-</html>
+{% endblock %}
