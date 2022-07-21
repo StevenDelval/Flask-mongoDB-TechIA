@@ -6,16 +6,36 @@
 
 
 <main class="admin">
-
+    
     <article class="commentaire_admin">
 {% if commentaire  %}
     <p>{{ commentaire["utilisateur"]}}</p>
     <p>{{ commentaire["date"]}}</p>
     <p>{{ commentaire["commentaire"]}}</p>
+    <form action="" method="post" class="form_admin">
+        <fieldset>
+            <legend>souhaitez vous valider le commentaire </legend>
+        
+            <div>
+              <input type="radio" id="oui" name="drone" value="oui"
+                     checked>
+              <label for="oui">oui</label>
+            </div>
+        
+            <div>
+              <input type="radio" id="non" name="drone" value="non">
+              <label for="non">non</label>
+            </div>
+        
+           
+        </fieldset>
+        
+        <input class="action_button" type="submit" value="Entrer">
+        {{form.csrf_token}}
+
     {% else %}
     <p> pas de commentaire </p>
 {% endif  %}
-
 
     </article>
 
