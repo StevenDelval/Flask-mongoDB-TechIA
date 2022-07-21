@@ -226,20 +226,13 @@ def admin():
                     articles.update_one({"titre": article["titre"] }, { "$set": {"commentaires":liste_commentaire_de_l_article} })
     else:
         return redirect(url_for("accueil"))          
-                
-               
-                
-                
-    
-            
-            
-            
 
-   
 
     return REDIRECTION
 
-
+#####################################
+## Validation commentaire          ##
+#####################################
 @app.route("/admin/valider/<id_article>/<nb_comm>")   
 def valider_com(id_article,nb_comm):
     pass
