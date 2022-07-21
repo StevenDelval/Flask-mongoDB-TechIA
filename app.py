@@ -113,7 +113,7 @@ def liste_articles():
     except:
         utilisateur = None
         admin = False
-    return render_template("liste_articles.html",login = utilisateur,admin=admin, articles=articles.find() )
+    return render_template("liste_articles.html",login = utilisateur,admin=admin, articles=articles.find().sort('date',-1) )
 
 
 #####################################
@@ -198,47 +198,42 @@ def admin():
     except:
         utilisateur = None
         admin = False
-        
-    liste_articles=articles.find()
-    form = Validation()
+    if admin:
+        liste_articles=articles.find()
+        form = Validation()
     
-    for article in liste_articles:
-        liste_commentaire = article["commentaires"]
-        for commentaire in liste_commentaire:
-            if not commentaire["validation"]:
-                REDIRECTION = render_template("page_admin.html",form = form,article=article  ,commentaire = commentaire)
+        for article in liste_articles:
+            liste_commentaire = article["commentaires"]
+            for commentaire in liste_commentaire:
+                if not commentaire["validation"]:
+                    REDIRECTION = render_template("page_admin.html",form = form,article=article  ,commentaire = commentaire)
                 
 
-    if form.validate_on_submit():
-        if utilisateur is not None:
+        if form.validate_on_submit():
+            if utilisateur is not None:
           
-            if bool(int(form.data["validation"])) :
-                print(article["titre"],end="\n\n")
-                article_du_commentaire = articles.find_one({"titre": article["titre"] })
-                liste_commentaire_de_l_article= article_du_commentaire ["commentaires"]
-                print(liste_commentaire_de_l_article,end="\n\n")
-                liste_commentaire_de_l_article.remove(commentaire)
-                print(liste_commentaire_de_l_article)
-                commentaire["validation"] = True
-                liste_commentaire_de_l_article.append(commentaire)
-                print(liste_commentaire_de_l_article,end="\n\n")
+                if bool(int(form.data["validation"])) :
+                    print(article["titre"],end="\n\n")
+                    article_du_commentaire = articles.find_one({"titre": article["titre"] })
+                    liste_commentaire_de_l_article= article_du_commentaire ["commentaires"]
+                    print(liste_commentaire_de_l_article,end="\n\n")
+                    liste_commentaire_de_l_article.remove(commentaire)
+                    print(liste_commentaire_de_l_article)
+                    commentaire["validation"] = True
+                    liste_commentaire_de_l_article.append(commentaire)
+                    print(liste_commentaire_de_l_article,end="\n\n")
 
-                articles.update_one({"titre": article["titre"] }, { "$set": {"commentaires":liste_commentaire_de_l_article} })
-                
-                
-               
-                
-                
-        else: 
-            REDIRECTION = redirect(url_for("connexion"))
-            
-            
-            
+                    articles.update_one({"titre": article["titre"] }, { "$set": {"commentaires":liste_commentaire_de_l_article} })
+    else:
+        return redirect(url_for("accueil"))          
 
-   
 
     return REDIRECTION
 
-    
-
+#####################################
+## Validation commentaire          ##
+#####################################
+@app.route("/admin/valider/<id_article>/<nb_comm>")   
+def valider_com(id_article,nb_comm):
+    pass
  
