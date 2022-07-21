@@ -11,9 +11,9 @@
 {%for article in articles%}
 <article class="titre_article_accueil">
     <h2>{{ article["titre"]}}</h2>
-    <p>{{ article["auteur"]}}</p>
+    <p class="auteur_accueil">{{ article["auteur"]}}</p>
     <p>{{ article["date"]}}</p>
-    <p>{{ article["resumer"]}}</p>
+    <p class="resume_accueil">{{ article["resumer"]}}</p>
     <a href={{ url_for('article',titre= article["titre"]) }}><span>Lire l'arti</span>cle</a>
 </article>
 
