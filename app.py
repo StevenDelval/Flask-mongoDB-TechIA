@@ -194,8 +194,11 @@ def page404():
 def admin():
     try:
         utilisateur = session["user"]
+        admin = session["admin"]
     except:
         utilisateur = None
+        admin = False
+        
     liste_articles=articles.find()
     form = Validation()
     
