@@ -151,10 +151,10 @@ def admin():
 
     if form.validate_on_submit():
         if utilisateur is not None:
-            print(form.data["validation"])
-            if form.data["validation"] :
+            print(bool(int(form.data["validation"])))
+            if bool(int(form.data["validation"]))  :
                 commentaire["validation"] = True
-                
+
                 return redirect(url_for("page404"))
                
                 
