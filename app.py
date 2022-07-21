@@ -200,16 +200,30 @@ def admin():
         admin = False
     if admin:
         liste_articles=articles.find()
-        form = Validation()
+        liste_des_comm_a_valider=[]
     
         for article in liste_articles:
-            liste_commentaire = article["commentaires"]
-            for commentaire in liste_commentaire:
-                if not commentaire["validation"]:
-                    REDIRECTION = render_template("page_admin.html",form = form,article=article  ,commentaire = commentaire)
+            liste_commentaires = article["commentaires"]
+            for index in range(len(liste_commentaires)):
+                if not liste_commentaires[index]["validation"]:
+                    liste_des_comm_a_valider.append([article["_id"],index])
+                    print(liste_des_comm_a_valider)
+                    
+
+        return render_template("page_admin.html",article=article )
                 
 
-        if form.validate_on_submit():
+        
+    else:
+        return redirect(url_for("accueil"))          
+
+
+#####################################
+## Validation commentaire          ##
+#####################################
+@app.route("/admin/valider/<id_article>/<nb_comm>")   
+def valider_com(id_article,nb_comm):
+    """ if form.validate_on_submit():
             if utilisateur is not None:
           
                 if bool(int(form.data["validation"])) :
@@ -223,17 +237,6 @@ def admin():
                     liste_commentaire_de_l_article.append(commentaire)
                     print(liste_commentaire_de_l_article,end="\n\n")
 
-                    articles.update_one({"titre": article["titre"] }, { "$set": {"commentaires":liste_commentaire_de_l_article} })
-    else:
-        return redirect(url_for("accueil"))          
-
-
-    return REDIRECTION
-
-#####################################
-## Validation commentaire          ##
-#####################################
-@app.route("/admin/valider/<id_article>/<nb_comm>")   
-def valider_com(id_article,nb_comm):
+                    articles.update_one({"titre": article["titre"] }, { "$set": {"commentaires":liste_commentaire_de_l_article} }) """
     pass
  
