@@ -69,7 +69,7 @@ def ecrire_article():
         if utilisateur is not None:
             nouvel_article={"titre":form.data["titre"],"auteur":utilisateur,"resumer":form.data["resumer"], "texte":form.data["texte"],"date":date_in_str(),"commentaires" :[] }
             liste_articles.append(nouvel_article)
-    return render_template("ecrire_article.html", form=form)
+    return render_template("ecrire_article.html",login=utilisateur, form=form)
 
 @app.route('/liste_articles')
 def liste_articles():
