@@ -21,6 +21,7 @@
                 {% endif %}
             </div>
             <div class="portail">
+                <li class="liste_nav"><a href={{ url_for("admin")}}>Espace admin</a></li>
                 {% if login %}
                     <li class="liste_nav">Bonjour {{login}} !</li>
                     <li class="liste_nav"> <a href={{ url_for("logout")}}>Se deconnecter</a></li>
