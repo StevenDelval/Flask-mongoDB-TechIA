@@ -1,4 +1,3 @@
-from tkinter.messagebox import NO
 from flask import Flask, render_template, redirect, url_for, request, session
 
 from pymongo import MongoClient
@@ -17,16 +16,24 @@ comment=db.commentaires
 app = Flask(__name__)
 app.config['SECRET_KEY']='Secret'
 
-
+#####################################
+## Accueil                         ##
+#####################################
 @app.route("/") #différents url possibles du site
 def accueil():
     try:
         utilisateur = session["user"]
+        admin = session["admin"]
     except:
         utilisateur = None
-    return render_template("accueil.html" ,login = utilisateur, articles = articles.find().sort('date',-1) )
+        admin = False
+        
+    return render_template("accueil.html" ,login = utilisateur, admin=admin, articles = articles.find().sort('date',-1) )
     
 
+#####################################
+## La page d'un article            ##
+#####################################
 @app.route('/article/<titre>', methods=['GET','POST'])
 def article(titre):
     article = articles.find_one({"titre" : titre})
@@ -35,8 +42,10 @@ def article(titre):
     else:
         try:
             utilisateur = session["user"]
+            admin = session["admin"]
         except:
             utilisateur = None
+            admin = False
 
         liste_commentaire=article["commentaires"]
         liste_commentaires_valides=[]
@@ -55,14 +64,20 @@ def article(titre):
             else:
                 return redirect(url_for("connexion"))
 
-        return render_template("article.html", form=form, login=utilisateur, article = article, comments=liste_commentaires_valides)
-    
+        return render_template("article.html", form=form, login=utilisateur,admin=admin, article = article, comments=liste_commentaires_valides)
+
+#####################################
+## Ecrire un article            ##
+#####################################
+
 @app.route('/ecrire_article', methods=['GET', 'POST'])
 def ecrire_article():
     try:
         utilisateur = session["user"]
+        admin = session["admin"]
     except:
         utilisateur = None
+        admin = False
     
 
     form = Article()
@@ -74,16 +89,26 @@ def ecrire_article():
 
         else:
             return redirect(url_for("connexion"))
-    return render_template("ecrire_article.html",login=utilisateur, form=form)
+    return render_template("ecrire_article.html",login=utilisateur,admin=admin, form=form)
 
+
+#####################################
+## Liste de tous les articles      ##
+#####################################
 @app.route('/liste_articles')
 def liste_articles():
     try:
         utilisateur = session["user"]
+        admin = session["admin"]
     except:
         utilisateur = None
-    return render_template("liste_articles.html",login = utilisateur, articles=articles.find().sort('date',-1) )
+        admin = False
+    return render_template("liste_articles.html",login = utilisateur,admin=admin, articles=articles.find().sort('date',-1) )
 
+
+#####################################
+## Connecxion                      ##
+#####################################
 @app.route('/connexion',methods=['GET','POST'])
 def connexion():
     form = Connexion()
@@ -91,16 +116,23 @@ def connexion():
         utilisateur = session["user"]
     except:
         utilisateur = None
+
     if utilisateur is not None:
         return redirect(url_for("accueil"))
     if form.validate_on_submit():
         is_in_bd = user.find_one({"username":form.data["login"],"password":crypt(form.data["password"])})
         if is_in_bd is not None:
             session["user"] = is_in_bd["username"]
+            session["admin"] = is_in_bd["droit_admin"]
             return redirect(url_for("accueil"))
       
     return render_template("connexion.html",form = form)
 
+
+
+#####################################
+## Inscription                     ##
+#####################################
 @app.route('/inscription',methods=['GET','POST'])
 def inscription():
     form =Inscription()
@@ -108,6 +140,7 @@ def inscription():
         utilisateur = session["user"]
     except:
         utilisateur = None
+
     if utilisateur is not None:
         return redirect(url_for("accueil"))
     if form.validate_on_submit():
@@ -115,22 +148,38 @@ def inscription():
         if is_in_bd is None:
             if form.data["password"] == form.data["confirmation_password"]:
                 user.insert_one({"username":form.data["login"],
-                                "password":crypt(form.data["password"])
+                                "password":crypt(form.data["password"]),
+                                "droit_admin":False,
                 }
                 )
                 session["user"] = form.data["login"]
+                session["admin"] = False
                 return redirect(url_for("accueil"))
         return redirect( url_for("inscription"))
     return render_template("inscription.html",form = form)
+
+
+#####################################
+## Deconnexion                     ##
+#####################################
 @app.route("/logout")
 def logout():
     session.pop('user')
+    session.pop("admin")
     return redirect(url_for("accueil"))
 
+
+#####################################
+## Page 404                        ##
+#####################################
 @app.route("/page404")
 def page404():
     return render_template("page404.html")
 
+
+#####################################
+## Page admin                      ##
+#####################################
 @app.route("/admin/",methods=['GET','POST']) #à compléter
 def admin():
     try:

@@ -33,7 +33,8 @@ article2 ={
 articles.insert_many([article1, article2])
 
 user.insert_one({
-    "username" : "test",
-    "password" : crypt("test")
+    "username" : "Admin",
+    "password" : crypt("admin"),
+    "droit_admin":True
 })
 
