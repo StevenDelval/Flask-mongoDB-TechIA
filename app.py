@@ -221,22 +221,28 @@ def admin():
 #####################################
 ## Validation commentaire          ##
 #####################################
-@app.route("/admin/valider/<id_article>/<nb_comm>")   
+@app.route("/admin/valider/<id_article>/<nb_comm>",methods=['GET','POST']) 
 def valider_com(id_article,nb_comm):
-    """ if form.validate_on_submit():
-            if utilisateur is not None:
-          
-                if bool(int(form.data["validation"])) :
-                    print(article["titre"],end="\n\n")
-                    article_du_commentaire = articles.find_one({"titre": article["titre"] })
-                    liste_commentaire_de_l_article= article_du_commentaire ["commentaires"]
-                    print(liste_commentaire_de_l_article,end="\n\n")
-                    liste_commentaire_de_l_article.remove(commentaire)
-                    print(liste_commentaire_de_l_article)
-                    commentaire["validation"] = True
-                    liste_commentaire_de_l_article.append(commentaire)
-                    print(liste_commentaire_de_l_article,end="\n\n")
+    try:
+        utilisateur = session["user"]
+        admin = session["admin"]
+    except:
+        utilisateur = None
+        admin = False
+    if admin:
+        article =articles.find({id_article})
+       
 
-                    articles.update_one({"titre": article["titre"] }, { "$set": {"commentaires":liste_commentaire_de_l_article} }) """
-    pass
+    form = Validation
+
+    if form.validate_on_submit():
+        if utilisateur is not None:
+          
+            if bool(int(form.data["validation"])) :
+                article["validation"] = True
+                article.update_one({"nb_comm": article["nb_comm"] }, { "$set": {"validation":True} })
+            
+
+    return render_template("page_admin.html",article=article,form=form)
+    
  
