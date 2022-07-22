@@ -5,34 +5,22 @@
 
 
 
-<main class="admin" style="background-color:#FFF ;">
-    
-    <article class="commentaire_admin">
-        {% if article %}
-        {{article.titre}}
-        {% endif  %}
-{% if commentaire  %}
-    <p>{{ commentaire["utilisateur"]}}</p>
-    <p>{{ commentaire["date"]}}</p>
-    <p>{{ commentaire["commentaire"]}}</p>
-    <form action="" method="post" class="form_admin">
-        <fieldset>
-            <legend>souhaitez vous valider le commentaire </legend>
-        
-            <div>
-              {{form.validation()}}
-            </div>
-    
-        
-           
-        </fieldset>
-        
-        <input class="action_button" type="submit" value="Entrer">
-        {{form.csrf_token}}
+<main class="admin">
 
-    {% else %}
-    <p> pas de commentaire </p>
-{% endif  %}
+    <article class="commentaire_admin">
+        
+        {% if commentaires %}
+        {% for comment in commentaires %}
+        <section>
+            <p>Id article : {{comment[0]}}</p>
+            <p>Auteur du commentaire: {{comment[1]}}</p>
+            <p>Commentaire : {{comment[2]}}</p>
+            <a href={{ url_for("valider_com",id_article=comment[0],nb_comm=comment[3])}}><span>Lien vers validation de l'arti</span>cle</a>
+        </section>
+        {% endfor %}
+        {% else %}
+        <p> Pas de commentaire a vailider </p>
+        {% endif %}
 
     </article>
 

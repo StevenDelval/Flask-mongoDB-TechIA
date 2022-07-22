@@ -1,9 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 
 from pymongo import MongoClient
+from bson import ObjectId
 
 from formulaires import Connexion, Inscription, Commentaire , Validation, Article
-
 from fonctions import crypt, date_in_str
 
 client = MongoClient("localhost:27017")
@@ -206,11 +206,12 @@ def admin():
             liste_commentaires = article["commentaires"]
             for index in range(len(liste_commentaires)):
                 if not liste_commentaires[index]["validation"]:
-                    liste_des_comm_a_valider.append([article["_id"],index])
-                    print(liste_des_comm_a_valider)
-                    
-
-        return render_template("page_admin.html",article=article )
+                    liste_des_comm_a_valider.append([article["_id"],liste_commentaires[index]["utilisateur"],liste_commentaires[index]["commentaire"],index])
+                  
+        if len(liste_des_comm_a_valider) == 0 :
+            liste_des_comm_a_valider=None
+        
+        return render_template("page_admin.html",login=utilisateur,admin=admin,commentaires=liste_des_comm_a_valider )
                 
 
         
@@ -221,22 +222,42 @@ def admin():
 #####################################
 ## Validation commentaire          ##
 #####################################
-@app.route("/admin/valider/<id_article>/<nb_comm>")   
+@app.route("/admin/valider/<id_article>/<nb_comm>",methods=['GET','POST']) 
 def valider_com(id_article,nb_comm):
-    """ if form.validate_on_submit():
-            if utilisateur is not None:
-          
-                if bool(int(form.data["validation"])) :
-                    print(article["titre"],end="\n\n")
-                    article_du_commentaire = articles.find_one({"titre": article["titre"] })
-                    liste_commentaire_de_l_article= article_du_commentaire ["commentaires"]
-                    print(liste_commentaire_de_l_article,end="\n\n")
-                    liste_commentaire_de_l_article.remove(commentaire)
-                    print(liste_commentaire_de_l_article)
-                    commentaire["validation"] = True
-                    liste_commentaire_de_l_article.append(commentaire)
-                    print(liste_commentaire_de_l_article,end="\n\n")
+    id_article=ObjectId(id_article)
+    nb_comm=int(nb_comm)
+    try:
+        utilisateur = session["user"]
+        admin = session["admin"]
+    except:
+        utilisateur = None
+        admin = False
+    if admin:
+        article =articles.find_one({"_id":id_article})
+        if article is None:
+            return redirect(url_for("page404"))
+    
+        
+        liste_commentaire=article["commentaires"]
+        commentaire_a_valider = liste_commentaire[nb_comm]
+        form = Validation()
 
-                    articles.update_one({"titre": article["titre"] }, { "$set": {"commentaires":liste_commentaire_de_l_article} }) """
-    pass
+        if form.validate_on_submit():
+
+            if utilisateur is not None:
+                if bool(int(form.data["validation"])) :
+                    print("lllllll")
+                    liste_commentaire.pop(nb_comm)
+                    commentaire_a_valider["validation"] = True
+                    liste_commentaire.insert(nb_comm,commentaire_a_valider)
+                    articles.update_one({"_id": id_article}, { "$set": {"commentaires":liste_commentaire} })
+                    return redirect(url_for("admin"))
+                else:
+                    print("nnnnnnn")
+                    liste_commentaire.pop(nb_comm)
+                    articles.update_one({"_id": id_article}, { "$set": {"commentaires":liste_commentaire} }) 
+                    return redirect(url_for("admin"))
+
+        return render_template("page_validation_com.html",login=utilisateur,admin=admin,form=form,article = article,commentaire = commentaire_a_valider)
+    
  
