@@ -129,14 +129,16 @@ def connexion():
 
     if utilisateur is not None:
         return redirect(url_for("accueil"))
+    erreur = None
     if form.validate_on_submit():
         is_in_bd = user.find_one({"username":form.data["login"],"password":crypt(form.data["password"])})
         if is_in_bd is not None:
             session["user"] = is_in_bd["username"]
             session["admin"] = is_in_bd["droit_admin"]
             return redirect(url_for("accueil"))
-      
-    return render_template("connexion.html",form = form)
+        else:
+            erreur = "Utilisateur ou mot de passe non existant"
+    return render_template("connexion.html",form = form, error=erreur)
 
 
 
@@ -153,6 +155,7 @@ def inscription():
 
     if utilisateur is not None:
         return redirect(url_for("accueil"))
+    erreur = None
     if form.validate_on_submit():
         is_in_bd = user.find_one({"username":form.data["login"]})
         if is_in_bd is None:
@@ -165,8 +168,11 @@ def inscription():
                 session["user"] = form.data["login"]
                 session["admin"] = False
                 return redirect(url_for("accueil"))
-        return redirect( url_for("inscription"))
-    return render_template("inscription.html",form = form)
+            else:
+                erreur = "Mots de passe différents"
+        else:
+            erreur = "Utilisateur déjà pris"
+    return render_template("inscription.html",form = form, error=erreur)
 
 
 #####################################
@@ -239,9 +245,14 @@ def valider_com(id_article,nb_comm):
     
         
         liste_commentaire=article["commentaires"]
+        if nb_comm >= len(liste_commentaire):
+            return redirect(url_for("admin"))
         commentaire_a_valider = liste_commentaire[nb_comm]
-        form = Validation()
 
+        form = Validation()
+        if  commentaire_a_valider["validation"]:
+            return redirect(url_for("admin"))
+        
         if form.validate_on_submit():
 
             if utilisateur is not None:

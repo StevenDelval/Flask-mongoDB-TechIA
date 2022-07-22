@@ -5,6 +5,11 @@
 <main class="connexion">
     <form action="" method="post" class="form_connexion">
         <a href={{ url_for('connexion') }}>Vous avez un compte ?</a>
+        
+        {%if error%} 
+        <p>{{error}}</p>
+        {%endif%}
+        
         <fieldset>
             {{form.login.label}}
             {{form.login(required='required')}}
