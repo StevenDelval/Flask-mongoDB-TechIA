@@ -1,0 +1,16 @@
+.page_validation{
+    width: 70%;
+    margin: 20px auto 0 auto;
+    form{
+        p:nth-child(3){
+            font-weight: bold;
+        }
+        ul{
+            list-style: none;
+        }
+        input[type='submit']{
+            width: 300px;
+            align-self:center ;
+        }
+    }
+}

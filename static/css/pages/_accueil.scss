@@ -17,6 +17,7 @@
     gap: 50px;
     width: 70%;
     margin: 20px auto 0 auto;
+    background-color: transparent;
 }
 
 .titre_article_accueil{
@@ -28,16 +29,13 @@
     text-align: justify;
     background-color: $couleur_claire;
     border-radius: 20px;
-    h2{
-        font-size: 36px;
-        font-family: Helvetica;
-    }
+    
     p{
         font-size: 18px;
     }
 
     margin: 0 auto;
-    color: $couleur_fond;
+    
     a{
         text-decoration: none;
         color: inherit;
@@ -52,11 +50,3 @@
     transform: scale(1.05);
 }
 
-.auteur_accueil {
-    color: $couleur_peps;
-    font-weight: bold;
-}
-
-.resume_accueil {
-    font-weight: bold;
-}

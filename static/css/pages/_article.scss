@@ -7,9 +7,18 @@
         background-color: $couleur_claire;
         padding: 15px;
         border-radius: 30px;
+        display: flex;
+        justify-content: space-between;
+        a:first-child{
+            margin-left: 15px;
+        }
+        a:last-child{
+            margin-right: 15px;
+        }
         a{
             text-decoration: none;
             color: inherit;
+            
             
                 span{
                     border-bottom: solid 1px $couleur_peps;
