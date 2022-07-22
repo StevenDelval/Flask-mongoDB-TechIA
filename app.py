@@ -117,7 +117,7 @@ def liste_articles():
 
 
 #####################################
-## Connecxion                      ##
+## Connexion                      ##
 #####################################
 @app.route('/connexion',methods=['GET','POST'])
 def connexion():

@@ -7,6 +7,9 @@
     <form action="" method="post" class="form_connexion">
         <a href={{ url_for('inscription') }}>Vous n'avez pas de compte ?</a>
 
+        {%if error%} 
+        <p>{{error}}</p>
+        {%endif%}
         <fieldset>
             {{form.login.label}}
             {{form.login(required='required')}}
