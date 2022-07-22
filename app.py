@@ -232,26 +232,32 @@ def valider_com(id_article,nb_comm):
     except:
         utilisateur = None
         admin = False
-    article =articles.find_one({"_id":id_article})
-    if article is None:
-        return redirect(url_for("page404"))
     if admin:
+        article =articles.find_one({"_id":id_article})
+        if article is None:
+            return redirect(url_for("page404"))
+    
         
         liste_commentaire=article["commentaires"]
         commentaire_a_valider = liste_commentaire[nb_comm]
-    form = Validation()
+        form = Validation()
 
-    if form.validate_on_submit():
-        if utilisateur is not None:
-            if bool(int(form.data["validation"])) :
-                liste_commentaire.pop(nb_comm)
-                commentaire_a_valider["validation"] = True
-                liste_commentaire.insert(nb_comm,commentaire_a_valider)
-                article.update_one({"_id": {"_id":id_article}}, { "$set": {"commentaires":liste_commentaire} })
-            else:
-                liste_commentaire.pop(nb_comm)
-                article.update_one({"_id": {"_id":id_article}}, { "$set": {"commentaires":liste_commentaire} }) 
+        if form.validate_on_submit():
 
-    return render_template("page_admin.html",login=utilisateur,admin=admin,form=form)
+            if utilisateur is not None:
+                if bool(int(form.data["validation"])) :
+                    print("lllllll")
+                    liste_commentaire.pop(nb_comm)
+                    commentaire_a_valider["validation"] = True
+                    liste_commentaire.insert(nb_comm,commentaire_a_valider)
+                    articles.update_one({"_id": id_article}, { "$set": {"commentaires":liste_commentaire} })
+                    return redirect(url_for("admin"))
+                else:
+                    print("nnnnnnn")
+                    liste_commentaire.pop(nb_comm)
+                    articles.update_one({"_id": id_article}, { "$set": {"commentaires":liste_commentaire} }) 
+                    return redirect(url_for("admin"))
+
+        return render_template("page_validation_com.html",login=utilisateur,admin=admin,form=form,article = article,commentaire = commentaire_a_valider)
     
  
