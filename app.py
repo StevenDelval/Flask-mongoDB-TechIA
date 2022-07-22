@@ -88,7 +88,8 @@ def ecrire_article():
     except:
         utilisateur = None
         admin = False
-    
+    if not admin:
+        return redirect(url_for("page404"))
 
     form = Article()
     if form.validate_on_submit():
