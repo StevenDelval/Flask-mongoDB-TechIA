@@ -21,7 +21,7 @@ app.config['SECRET_KEY']='Secret'
 #####################################
 @app.route("/") #différents url possibles du site
 def accueil():
-    try:
+    try: ## Savoir si l'utilisateur est authentifier et a des droit admin
         utilisateur = session["user"]
         admin = session["admin"]
     except:
@@ -30,8 +30,8 @@ def accueil():
         
     index = 0
     liste_articles =[]
-    tous_les_articles = articles.find().sort('date',-1)
-    for article in tous_les_articles:
+    tous_les_articles = articles.find().sort('date',-1)## Recuperation de tous les articles
+    for article in tous_les_articles: ## Cree une liste avec les 6 dernier articles
         if index < 6:
             liste_articles.append(article)
             index += 1
@@ -47,8 +47,8 @@ def accueil():
 @app.route('/article/<titre>', methods=['GET','POST'])
 def article(titre):
     article = articles.find_one({"titre" : titre})
-    if article is None:
-        return redirect(url_for("page404"))
+    if article is None: ## verifie si l'article existe
+        return redirect(url_for("page404"))## Revoie la page 404
     else:
         try:
             utilisateur = session["user"]
@@ -60,13 +60,13 @@ def article(titre):
         liste_commentaire=article["commentaires"]
         liste_commentaires_valides=[]
         for comment in liste_commentaire:
-            if comment["validation"] :
+            if comment["validation"] : ## Cree une liste avec les commentaires validés
                 liste_commentaires_valides.append(comment)
         form = Commentaire()
         
         if form.validate_on_submit():
             if utilisateur is not None:
-            
+                ## Ajout le commentaire de l'utilisateur dans la BDD
                 commentaire={"utilisateur":utilisateur, "date":date_in_str(), "commentaire":form.data["commentaire"],"validation": False}
                 liste_commentaire.append(commentaire)
                 articles.update_one({"titre" : titre}, { "$set": {"commentaires":liste_commentaire} })
@@ -94,6 +94,7 @@ def ecrire_article():
     form = Article()
     if form.validate_on_submit():
         if utilisateur is not None:
+            #Ajout de l'article a la BDD
             nouvel_article={"titre":form.data["titre"],"auteur":utilisateur,"resumer":form.data["resumer"], "texte":form.data["texte"],"date":date_in_str(),"commentaires" :[] }
             articles.insert_one(nouvel_article)
             return redirect(url_for("liste_articles"))
@@ -213,6 +214,7 @@ def admin():
             liste_commentaires = article["commentaires"]
             for index in range(len(liste_commentaires)):
                 if not liste_commentaires[index]["validation"]:
+                    ## Ajout le commentaire qui n'est pas validé a liste avec l'id de l'article,son auteur et son index dans la liste des commentaires de son article. 
                     liste_des_comm_a_valider.append([article["_id"],liste_commentaires[index]["utilisateur"],liste_commentaires[index]["commentaire"],index])
                   
         if len(liste_des_comm_a_valider) == 0 :
