@@ -1,9 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 
 from pymongo import MongoClient
+from bson import ObjectId
 
 from formulaires import Connexion, Inscription, Commentaire , Validation, Article
-
 from fonctions import crypt, date_in_str
 
 client = MongoClient("localhost:27017")
@@ -224,14 +224,19 @@ def admin():
 #####################################
 @app.route("/admin/valider/<id_article>/<nb_comm>",methods=['GET','POST']) 
 def valider_com(id_article,nb_comm):
+    id_article=ObjectId(id_article)
+    nb_comm=int(nb_comm)
     try:
         utilisateur = session["user"]
         admin = session["admin"]
     except:
         utilisateur = None
         admin = False
+    article =articles.find_one({"_id":id_article})
+    if article is None:
+        return redirect(url_for("page404"))
     if admin:
-        article =articles.find({"_id":id_article})
+        
         liste_commentaire=article["commentaires"]
         commentaire_a_valider = liste_commentaire[nb_comm]
     form = Validation()
@@ -247,6 +252,6 @@ def valider_com(id_article,nb_comm):
                 liste_commentaire.pop(nb_comm)
                 article.update_one({"_id": {"_id":id_article}}, { "$set": {"commentaires":liste_commentaire} }) 
 
-    return render_template("page_admin.html",article=article,form=form)
+    return render_template("page_admin.html",login=utilisateur,admin=admin,form=form)
     
  
