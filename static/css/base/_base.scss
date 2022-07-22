@@ -10,7 +10,7 @@ body{
   /* Firefox */
   * {
     scrollbar-width: none;
-    scrollbar-color: #d4331d #ffffff;
+    scrollbar-color: $couleur_peps #ffffff;
 
   }
 
@@ -24,7 +24,25 @@ body{
   }
 
   *::-webkit-scrollbar-thumb {
-    background-color: #d4331d;
+    background-color: $couleur_peps;
     border-radius: 0px;
     border: 0px none #ffffff;
   }
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@300&family=Montserrat+Alternates:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner&display=swap');
+.auteur {
+  font-family: 'Exo', sans-serif;
+    color: $couleur_peps;
+    font-weight: bold;
+}
+*{
+  font-family: 'Exo', sans-serif;
+}
+
+.titre{
+  font-family: 'Edu TAS Beginner', cursive;
+  font-size: 36px;
+}

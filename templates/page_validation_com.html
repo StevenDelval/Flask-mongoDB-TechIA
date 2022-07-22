@@ -5,23 +5,25 @@
 <main class="page_validation">
 
     <form action="" method="post" class="form_connexion">
-        
-            
-           
-                <h2 classe="commentaire"> {{  commentaire}}</h2>
-              
-       
-    
+
+
         <fieldset>
-          
-        
+        <p classe="commentaire"> Utilisateur : {{commentaire['utilisateur']}}</p>
+        <p classe="commentaire"> Date : {{commentaire['date']}}</p>
+        <p classe="commentaire"> Commentaire : {{commentaire['commentaire']}}</p>
+        <p classe="commentaire"> Validation :{{commentaire['validation']}}</p>
+        </fieldset>
+
+        <fieldset>
+
+
             {{form.validation.label}}
             {{form.validation()}}
 
-        
-          
+
+
         </fieldset>
-        
+
         <input class="action_button" type="submit" value="Entrez">
         {{form.csrf_token}}
 

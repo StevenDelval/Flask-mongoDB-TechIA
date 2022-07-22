@@ -7,14 +7,14 @@
     {%if admin%}
     <div>
     
-    <a href={{url_for("modifier_article", id_article=article["_id"])}}><span> Modifier l'arti</span>cle</a>
-    <a href={{url_for("supprimer_article", id_article=article["_id"])}}><span> Supprimer l'arti</span>cle</a>
+        <a href={{url_for("modifier_article", id_article=article["_id"])}}><span> Modifier l'arti</span>cle</a>
+        <a href={{url_for("supprimer_article", id_article=article["_id"])}}><span> Supprimer l'arti</span>cle</a>
     </div>
     {%endif%} 
 
     <article class="article">
-    <h2>{{ article["titre"]}}</h2>
-    <p>Auteur : {{ article["auteur"]}}</p>
+    <h2 class="titre">{{ article["titre"]}}</h2>
+    <p class="auteur">Auteur : {{ article["auteur"]}}</p>
     <p>Crée le : {{ article["date"]}}</p>
     {% if article["modifier"] %}
     <p>Modifier le : {{ article["modifier"]}}</p>

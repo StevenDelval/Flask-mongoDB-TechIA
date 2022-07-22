@@ -6,10 +6,10 @@
     <main class="main_liste_articles">
         {%for article in articles%}
         <article class="article_liste_articles">
-            <h1 class="titre_liste_articles">{{ article["titre"]}}</h1>
-            <p class="auteur_liste_articles">{{ article["auteur"]}}</p>
-            <p class="date_liste_articles">{{ article["date"]}}</p>
-            <p class="resumer_liste_articles">{{ article["resumer"]}}</p>
+            <h1 class="titre">{{ article["titre"]}}</h1>
+            <p class="auteur">{{ article["auteur"]}}</p>
+            <p class="date">{{ article["date"]}}</p>
+            <p class="resumer">{{ article["resumer"]}}</p>
             <a href={{ url_for('article',titre=article["titre"]) }}><span>Lire l'arti</span>cle</a>
         </article>
         {%endfor%}

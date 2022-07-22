@@ -10,13 +10,13 @@
 <main class="main_accueil">
 {%for article in articles%}
 <article class="titre_article_accueil">
-    <h2>{{ article["titre"]}}</h2>
-    <p class="auteur_accueil">Auteur : {{ article["auteur"]}}</p>
+    <h2 class="titre">{{ article["titre"]}}</h2>
+    <p class="auteur">Auteur : {{ article["auteur"]}}</p>
     <p>Crée le : {{ article["date"]}}</p>
     {% if article["modifier"] %}
     <p>Modifier le : {{ article["date"]}}</p>
     {%endif%}
-    <p class="resume_accueil">Résumé : {{ article["resumer"]}}</p>
+    <p class="resume">Résumé : {{ article["resumer"]}}</p>
     <a href={{ url_for('article',titre= article["titre"]) }}><span>Lire l'arti</span>cle</a>
 </article>
 
