@@ -70,7 +70,7 @@ def article(titre):
                 commentaire={"utilisateur":utilisateur, "date":date_in_str(), "commentaire":form.data["commentaire"],"validation": False}
                 liste_commentaire.append(commentaire)
                 articles.update_one({"titre" : titre}, { "$set": {"commentaires":liste_commentaire} })
-        
+                return redirect(url_for("article",titre=titre))
             else:
                 return redirect(url_for("connexion"))
 
