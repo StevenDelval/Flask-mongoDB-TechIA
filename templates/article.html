@@ -4,6 +4,12 @@
 {% block body %}
 
 <main class="main_article">
+    {%if admin%}
+    <div>
+    <a href={{url_for("supprimer_article", id_article=article["_id"])}}><span> Supprimer l'arti</span>cle</a>
+    </div>
+    {%endif%} 
+
     <article class="article">
     <h2>{{ article["titre"]}}</h2>
     <p>{{ article["auteur"]}}</p>

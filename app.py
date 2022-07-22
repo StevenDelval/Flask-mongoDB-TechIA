@@ -257,18 +257,23 @@ def valider_com(id_article,nb_comm):
 
             if utilisateur is not None:
                 if bool(int(form.data["validation"])) :
-                    print("lllllll")
                     liste_commentaire.pop(nb_comm)
                     commentaire_a_valider["validation"] = True
                     liste_commentaire.insert(nb_comm,commentaire_a_valider)
                     articles.update_one({"_id": id_article}, { "$set": {"commentaires":liste_commentaire} })
                     return redirect(url_for("admin"))
                 else:
-                    print("nnnnnnn")
                     liste_commentaire.pop(nb_comm)
                     articles.update_one({"_id": id_article}, { "$set": {"commentaires":liste_commentaire} }) 
                     return redirect(url_for("admin"))
 
         return render_template("page_validation_com.html",login=utilisateur,admin=admin,form=form,article = article,commentaire = commentaire_a_valider)
     
- 
+#####################################
+## Supprimer un article            ##
+#####################################
+@app.route('/article/supprimer_article/<id_article>')
+def supprimer_article(id_article):
+    id_article=ObjectId(id_article)
+    articles.delete_one({"_id": id_article})
+    return redirect (url_for("liste_articles"))

@@ -1,10 +1,26 @@
 .main_article{
     height: calc(100vh - 60px);
     overflow-y: auto;
+    div{
+        width: 70%;
+        margin: 20px auto 0 auto;
+        background-color: $couleur_claire;
+        padding: 15px;
+        border-radius: 30px;
+        a{
+            text-decoration: none;
+            color: inherit;
+            
+                span{
+                    border-bottom: solid 1px $couleur_peps;
+                }
+            
+        }
+    }
 }
 .article {
     text-align: justify;
-    background-color: white;
+    background-color: $couleur_claire;
     color: black;
     gap: 50px;
     width: 70%;
@@ -16,7 +32,7 @@
 }
 .commentaire_article{
     text-align: justify;
-    background-color: white;
+    background-color: $couleur_claire;
     color: black;
     gap: 50px;
     width: 70%;
@@ -30,7 +46,7 @@
 .form_comment {
     overflow: hidden;
     text-align: justify;
-    background-color: white;
+    background-color: $couleur_claire;
     color: black;
     display: flex;
     flex-flow: column;
