@@ -11,7 +11,7 @@ client = MongoClient("localhost:27017")
 db=client.blog
 articles = db.articles
 user=db.utilisateurs
-comment=db.commentaires
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='Secret'
