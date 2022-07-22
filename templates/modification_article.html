@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block body %}
+<main class="ecrire_article">
+    <form action="" method="post" class="form_article">  <!-- ou form_comment -->
+        <fieldset>
+            {{form.titre.label}}
+            {{form.titre(required='required',value=article["titre"])}}
+        </fieldset>
+
+        <fieldset>
+            {{form.texte.label}}
+            {{form.texte(rows='4', required='required',value=article["texte"])}}
+        </fieldset>
+
+        <fieldset>
+            {{form.resumer.label}}
+            {{form.resumer(required='required',value=article["resumer"])}}
+        </fieldset>
+
+        <input class="action_button" type="submit" value="Modifier l'article">
+        {{form.csrf_token}}
+    </form>
+    <script>
+        let textarea = document.querySelector("textarea");
+        textarea.innerText = textarea.attributes.value.value;
+    </script>
+</main>
+{%endblock%}

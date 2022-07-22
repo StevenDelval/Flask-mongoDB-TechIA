@@ -20,3 +20,8 @@ class Article(FlaskForm):
     titre = StringField("Titre : ", render_kw={"placeholder": "Entrez votre titre"})
     texte = TextAreaField("Article : ", render_kw={"placeholder": "Commencez l'écriture..."})
     resumer =StringField("Résumé : ", render_kw={"placeholder": "Entrez le résumé"})
+
+class Modifier_article(FlaskForm):
+    titre = StringField("Titre : " )
+    texte = TextAreaField("Article : " )
+    resumer =StringField("Résumé : ")

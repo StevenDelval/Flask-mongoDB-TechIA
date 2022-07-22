@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, url_for, request, session
 from pymongo import MongoClient
 from bson import ObjectId
 
-from formulaires import Connexion, Inscription, Commentaire , Validation, Article
+from formulaires import Connexion, Inscription, Commentaire , Validation, Article,Modifier_article
 from fonctions import crypt, date_in_str
 
 client = MongoClient("localhost:27017")
@@ -289,8 +289,23 @@ def supprimer_article(id_article):
 #####################################
 ## Modifier un article             ##
 #####################################
-@app.route('/article/supprimer_article/<id_article>')
-def supprimer_article(id_article):
-    id_article=ObjectId(id_article)
-    articles.delete_one({"_id": id_article})
-    return redirect (url_for("liste_articles"))
+@app.route('/article/modifier_article/<id_article>',methods=['GET','POST'])
+def modifier_article(id_article):
+    try:
+        utilisateur = session["user"]
+        admin = session["admin"]
+    except:
+        utilisateur = None
+        admin = False
+    if admin:
+        id_article=ObjectId(id_article)
+        article=articles.find_one({"_id": id_article})
+        form = Modifier_article()
+        if form.validate_on_submit():
+            if utilisateur is not None:
+                articles.update_one({"_id": id_article}, { "$set": {"titre":form.data["titre"],"texte":form.data["texte"],"resumer":form.data["resumer"],"modifier":date_in_str()} })
+                return redirect(url_for("article",titre=article["titre"]))
+
+        return render_template("modification_article.html",article=article,form=form,login=utilisateur,admin=admin)
+    else:
+        return redirect(url_for("accueil"))
