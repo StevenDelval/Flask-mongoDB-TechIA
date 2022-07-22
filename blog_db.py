@@ -1,6 +1,5 @@
 from pymongo import MongoClient
-from datetime import datetime
-import hashlib
+
 from fonctions import crypt,date_in_str
 client = MongoClient("127.0.0.1:27017") 
 
@@ -26,8 +25,8 @@ article2 ={
     "resumer" : "blablalbla  bla bla bla",
     "texte" : "Les bananes sont délicieuses.",
     "date" : date_in_str(),
-    "commentaires" :[{"utilisateur":"Dom", "date":date_in_str(), "commentaire":"Wooooooooooooh mongo db est dur","validation": False},
-    {"utilisateur":"Fom", "date":date_in_str(), "commentaire":"mongo db est dur par la la fenetre","validation": False}]
+    "commentaires" :[{"utilisateur":"Dom", "date":date_in_str(), "commentaire":"Wooooooooooooh mongodb est dur","validation": False},
+    {"utilisateur":"Fom", "date":date_in_str(), "commentaire":"mongodb","validation": False}]
     
 }
 # [{"utilisateur":"Tom", "date":date_in_str(), "commentaire":"Waaa","validation": True}]

@@ -206,11 +206,12 @@ def admin():
             liste_commentaires = article["commentaires"]
             for index in range(len(liste_commentaires)):
                 if not liste_commentaires[index]["validation"]:
-                    liste_des_comm_a_valider.append([article["_id"],index])
-                    print(liste_des_comm_a_valider)
-                    
-
-        return render_template("page_admin.html",article=article )
+                    liste_des_comm_a_valider.append([article["_id"],liste_commentaires[index]["utilisateur"],liste_commentaires[index]["commentaire"],index])
+                  
+        if len(liste_des_comm_a_valider) == 0 :
+            liste_des_comm_a_valider=None
+        
+        return render_template("page_admin.html",login=utilisateur,admin=admin,commentaires=liste_des_comm_a_valider )
                 
 
         
@@ -238,5 +239,5 @@ def valider_com(id_article,nb_comm):
                     print(liste_commentaire_de_l_article,end="\n\n")
 
                     articles.update_one({"titre": article["titre"] }, { "$set": {"commentaires":liste_commentaire_de_l_article} }) """
-    pass
+    return render_template("accueil.html")
  
