@@ -1,0 +1,13 @@
+.action_button {
+    border: solid 1px $couleur_peps;
+    background-color: $couleur_peps;
+    color: white;
+    border-radius: 10px;
+    font-size: 24px;
+    padding: 5px 0;
+    cursor: pointer;
+    
+}
+.action_button:hover{
+    transform: scale(1.2);
+}

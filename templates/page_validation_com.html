@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<main class="page_validation">
+
+    <form action="" method="post" class="form_connexion">
+        
+            
+           
+                <h2 classe="commentaire"> {{  commentaire}}</h2>
+              
+       
+    
+        <fieldset>
+          
+        
+            {{form.validation.label}}
+            {{form.validation()}}
+
+        
+          
+        </fieldset>
+        
+        <input class="action_button" type="submit" value="Entrez">
+        {{form.csrf_token}}
+
+    </form>
+</main>
+{% endblock %}

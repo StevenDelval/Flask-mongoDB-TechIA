@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<main class="connexion">
+    <form action="" method="post" class="form_connexion">
+        <a href={{ url_for('connexion') }}>Vous avez un compte ?</a>
+        
+        {%if error%} 
+        <p>{{error}}</p>
+        {%endif%}
+        
+        <fieldset>
+            {{form.login.label}}
+            {{form.login(required='required')}}
+
+        </fieldset>
+
+        <fieldset>
+            {{form.password.label}}
+            {{form.password(required='required')}}
+        </fieldset>
+
+        <fieldset>
+            {{form.confirmation_password.label}}
+            {{form.confirmation_password(required='required')}}
+        </fieldset>
+
+        <input class="action_button" type="submit" value="Inscription">
+        {{form.csrf_token}}
+
+    </form>
+</main>
+{% endblock %}

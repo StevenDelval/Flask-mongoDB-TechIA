@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+<main class="ecrire_article">
+    <form action="" method="post" class="form_article">  <!-- ou form_comment -->
+        <fieldset>
+            {{form.titre.label}}
+            {{form.titre(required='required')}}
+        </fieldset>
+
+        <fieldset>
+            {{form.texte.label}}
+            {{form.texte(rows='4', required='required')}}
+        </fieldset>
+
+        <fieldset>
+            {{form.resumer.label}}
+            {{form.resumer(required='required')}}
+        </fieldset>
+
+        <input class="action_button" type="submit" value="Publiez votre article">
+        {{form.csrf_token}}
+    </form>
+</main>
+{%endblock%}

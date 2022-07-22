@@ -1,5 +1,40 @@
 {% extends "base.html" %}
 
+
 {% block body %}
-    <h1>{{ nom }}</h1>
+
+<main class="main_article">
+    {%if admin%}
+    <div>
+    
+    <a href={{url_for("modifier_article", id_article=article["_id"])}}><span> Modifier l'arti</span>cle</a>
+    <a href={{url_for("supprimer_article", id_article=article["_id"])}}><span> Supprimer l'arti</span>cle</a>
+    </div>
+    {%endif%} 
+
+    <article class="article">
+    <h2>{{ article["titre"]}}</h2>
+    <p>Auteur : {{ article["auteur"]}}</p>
+    <p>Crée le : {{ article["date"]}}</p>
+    {% if article["modifier"] %}
+    <p>Modifier le : {{ article["modifier"]}}</p>
+    {%endif%}
+    <p>{{ article["texte"]}}</p>
+    </article>
+
+    {%for comment in comments%}
+    <section class="commentaire_article">
+        <p class="commentaire_utilisateur">Commentaire de : {{comment["utilisateur"]}} le {{comment["date"]}}</p>
+        <p class="commentaire_text"> {{comment["commentaire"]}}</p>
+       
+    </section>
+    {%endfor%}
+    <form action="" method="post" class="form_comment">
+        {{form.commentaire.label}}
+        {{form.commentaire(rows='4')}}
+        <input class="action_button" type="submit" value="Envoyer commentaire">
+        {{form.csrf_token}}
+    </form>
+    
+</main>
 {% endblock %}

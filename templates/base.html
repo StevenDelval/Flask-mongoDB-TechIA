@@ -9,6 +9,31 @@
     <title>Mon super blog sur l'IA !</title>
 </head>
 <body>
-    {% block body %}{% endblock %}
+    <nav>
+        <ul>
+            <div class="index">
+                <li class="liste_nav"><a href={{ url_for("accueil")}}>Accueil</a></li>
+                <li class="liste_nav"><a href={{ url_for("liste_articles")}}>Articles</a></li>
+                {% if admin %}
+            <li class="liste_nav"><a href={{ url_for("ecrire_article")}}>Écrire un article</a></li>
+                {% endif %}
+            </div>
+            <div class="portail">
+                {% if admin %}
+                <li class="liste_nav"><a href={{ url_for("admin")}}>Espace admin</a></li>
+                {% endif %}
+                {% if login %}
+                    <li class="liste_nav">Bonjour {{login}} !</li>
+                    <li class="liste_nav"> <a href={{ url_for("logout")}}>Se déconnecter</a></li>
+                {% else %}
+                
+                <li class="liste_nav"><a href={{ url_for("connexion")}}>Se connecter</a></li>
+                <li class="liste_nav"><a href={{ url_for("inscription")}}>Inscription</a></li>
+                {% endif %}
+            </div>
+        </ul>
+    </nav>
+    {% block body %}
+    {% endblock %}
 </body>
 </html>

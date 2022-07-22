@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+
+
+
+<main class="admin">
+
+    <article class="commentaire_admin">
+        
+        {% if commentaires %}
+        {% for comment in commentaires %}
+        <section>
+            <p>Id article : {{comment[0]}}</p>
+            <p>Auteur du commentaire: {{comment[1]}}</p>
+            <p>Commentaire : {{comment[2]}}</p>
+            <a href={{ url_for("valider_com",id_article=comment[0],nb_comm=comment[3])}}><span>Lien vers validation de l'arti</span>cle</a>
+        </section>
+        {% endfor %}
+        {% else %}
+        <p> Pas de commentaire à valider </p>
+        {% endif %}
+
+    </article>
+
+</main>
+{% endblock %}
