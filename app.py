@@ -274,6 +274,23 @@ def valider_com(id_article,nb_comm):
 #####################################
 @app.route('/article/supprimer_article/<id_article>')
 def supprimer_article(id_article):
+    try:
+        utilisateur = session["user"]
+        admin = session["admin"]
+    except:
+        utilisateur = None
+        admin = False
+    if admin:
+        id_article=ObjectId(id_article)
+        articles.delete_one({"_id": id_article})
+        return redirect (url_for("liste_articles"))
+    else:
+        return redirect(url_for("accueil"))
+#####################################
+## Modifier un article             ##
+#####################################
+@app.route('/article/supprimer_article/<id_article>')
+def supprimer_article(id_article):
     id_article=ObjectId(id_article)
     articles.delete_one({"_id": id_article})
     return redirect (url_for("liste_articles"))
